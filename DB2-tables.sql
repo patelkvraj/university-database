@@ -180,8 +180,7 @@ create table take
 		on delete cascade
 	);
 
-
-
+--account
 insert into account (email, password, type) values ('admin@uml.edu', '123456', 'admin');
 insert into account (email, password, type) values ('dbadams@cs.uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('slin@cs.uml.edu', '123456', 'instructor');
@@ -189,26 +188,40 @@ insert into account (email, password, type) values ('Yelena_Rykalova@uml.edu', '
 insert into account (email, password, type) values ('Johannes_Weis@uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('Charles_Wilkes@uml.edu', '123456', 'instructor');
 
-
-insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
-insert into course (course_id, course_name, credits) values ('COMP1020', 'Computing II', 3);
-insert into course (course_id, course_name, credits) values ('COMP2010', 'Computing III', 3);
-insert into course (course_id, course_name, credits) values ('COMP2040', 'Computing IV', 3);
-
+--department
 insert into department (dept_name, location) value ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
 
+--instructor
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
 
+--student
+
+--php
+
+--master
+
+--undergrad
+
+--classroom
+
+--time slot
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS2', 'MoWeFr', '12:00:00', '12:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS3', 'MoWeFr', '13:00:00', '13:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS4', 'TuTh', '11:00:00', '12:15:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS5', 'TuTh', '12:30:00', '13:45:00');
 
+--course
+insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
+insert into course (course_id, course_name, credits) values ('COMP1020', 'Computing II', 3);
+insert into course (course_id, course_name, credits) values ('COMP2010', 'Computing III', 3);
+insert into course (course_id, course_name, credits) values ('COMP2040', 'Computing IV', 3);
+
+--section
 insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section101', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section102', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section103', 'Fall', 2023);
@@ -218,3 +231,15 @@ insert into section (course_id, section_id, semester, year) value ('COMP1020', '
 insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section101', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section102', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP2040', 'Section201', 'Spring', 2024);
+
+--prereq
+
+--advise
+
+--ta
+
+--mastergrader
+
+--undegradgrader
+
+--take
