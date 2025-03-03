@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Database</title>
+<title>University Course Management</title>
 </head>
 <body>
     <p>Hello World!</p>
     <p>This is just testing</p>
+<h2>Student Account Creation</h2>
+<form action="student.php" method="POST">
+Email: <input type="text" name="email"><br>
+Password: <input type="password" name="password"><br>
+<input type="submit" value="Create Account">
+</form>
+<h2>Student Course Registration</h2>
+<form action="student_register.php" method="POST">
+Student ID: <input type="text" name="student_id"><br>
+Section ID: <input type="text" name="section_id"><br>
+<input type="submit" value="Register">
+</form>
 </body>
 </html>
