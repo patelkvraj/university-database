@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!mysqli_query($conn, $master_sql)) {
                     throw new Exception("Error creating master's record: " . mysqli_error($conn));
                 }
-            } else if ($student_type == 'pdh') {
+            } else if ($student_type == 'phd') {
                 $phd_sql = "INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES ('$student_id', NULL, NULL, NULL)";
                 if (!mysqli_query($conn, $phd_sql)) {
                     throw new Exception("Error creating PhD record: " . mysqli_error($conn));
@@ -149,6 +149,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_rollback($conn);
             $error_message = $e->getMessage();
         }
+    } else if ($action == 'update') {
+        // for existing student account
+        $student_id = $_POST['student_id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $dept_name = $_POST['dept_name'];
+        $student_type =$_POST['student_name'];
+
+        // handle 'other' department
+        if ($dept_name == 'other' && isset($_POST['other_dept']) && !empty($_POST['other_dept'])) {
+            $dept_name = $_POST['other_dept'];
+        }
+
+        // start transaction
+        mysqli_begin_transaction($conn);
+
+        try {
+            // check if student exists
+            $check_sql = "SELECT * FROM student WHERE student_id = '$student_id'";
+            $check_result = mysqli_query($conn, $check_sql);
+
+            if (mysqli_num_rows($check_result) == 0) {
+                throw new Exception("Student ID not found.");
+            }
+
+            // check if department exists
+            $dept_sql = "SELECT * FROM department WHERE dept_name = '$dept_name'";
+            $dept_result = mysqli_query($conn, $dept_sql);
+
+            if (mysqli_num_rows($dept_result) == 0) {
+                // insert department if it doesn't exist
+                $insert_dept_sql = "INSERT INTO department (dept_name, location) VALUES ('$dept_name', 'TBD')";
+                if (!mysqli_query($conn, $insert_dept_sql)) {
+                    throw new Exception("Error creating department: " . mysqli_error($conn));
+                }
+            }
+
+            // get original student email for account table
+            $student_row = mysqli_fetch_assoc($check_result);
+            $original_email = student_row['email'];
+
+            // update student table
+            $student_sql = "UPDATE student SET name = '$name, email = '$email', dept_name = '$dept_name' WHERE student_id = '$student_id'";
+            if (!mysqli_query($conn, $student_sql)) {
+                throw new Exception("Error updating student record: " . mysqli_error($conn));
+            }
+            
+            // update account table if email changed
+            if ($original_email != $email) {
+                $account_sql = "UPDATE account SET email = '$email' WHERE email = '$original_email'";
+                if (!mysqli_query($conn, $account_sql)) {
+                    throw new Exception("Error updating account: " . mysqli_error($conn));
+                }
+            }
+
+            // update student for each type
+            if ($student_type == 'undergraduate') {
+                $total_credits = $_POST['total_credits'] ?? 0 // ?? 0 if null set to 0
+            }
+
+
+
     }
 }
 ?>
