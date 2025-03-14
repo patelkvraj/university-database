@@ -207,10 +207,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // update student for each type
             if ($student_type == 'undergraduate') {
                 $total_credits = $_POST['total_credits'] ?? 0 // ?? 0 if null set to 0
+                $class_standing = $_POST['class_standing'] ?? 'Freshman';
+
+                // check for undergrad record
+                $check_undergrad_sql = "SELECT * FROM undergraduate WHERE student_id = '$student_id'";
+                $check_undergrad_result = mysqli_query($conn, $check_undergrad_sql);
+
+                if (mysqli_num_rows($check_undergrad_result) > 0) {
+                    $undergrad_sql = "UPDATE undergraduate SET total_credits = '$total_credits', class_standing = '$class_standing' WHERE student_id = '$student_id'";
+                } else {
+                    $undergrad_sql = "INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES ('$student_id', '$total_credits', '$class_standing')";
+                }
+
+                if (!mysqli_query($conn, $undergrad_sql)) {
+                    throw new Exception("Error updating undergraduate record: " . mysqli_error($conn));
+                }
+
+            } else if ($student_type == 'master') {
+                // check for master record
+                $check_master_sql = "SELECT * FROM master WHERE student_id = '$student_id'";
+                $check_master_result = mysqli_query($conn, $check_master_sql);
+
+                if (mysqli_num_rows($check_master_result) > 0) {
+                    $master_sql = "UPDATE master SET total_credits = '$total_credits' WHERE student_id = '$student_id'";
+                } else {
+                    $master_sql = "INSERT INTO master (student_id, total_credits) VALUES ('$student_id', '$total_credits')";
+                }
+
+                if (!mysqli_query($conn, $master_sql)) {
+                    throw new Exception("Error updating master's record: " . mysqli_error($conn));
+                }
+            } else if ($student_type == 'phd') {
+                // check for PhD record
+                $check_phd_sql = "SELECT * FROM PhD WHERE student_id = '$student_id'";
+                $check_phd_result = mysqli_query($conn, $check_phd_sql);
+
+                if (mysqli_num_rows($check_phd_result) == 0) {
+                    $phd_sql = "INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES ('$student_id', NULL, NULL, NULL)";
+                    if (!mysqli_query($conn, $phd_sql)) {
+                        throw new Exception("Error updating PhD record: " . mysqli_error($conn));
+                    }
+                }
             }
 
-
-
+            // commit transaction
+            mysqli_commit($conn);
+            $success_message = "Student account updated successfully!";
+        } catch (Exception $e) {
+            // rollback transaction on error
+            mysqli_rollback($conn);
+            $error_message = $e->getMessage();
+        }
     }
 }
 ?>
