@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $total_credits = $_POST['total_credits'] ?? 0;
                 $class_standing = $_POST['class_standing'] ?? 'Freshman';
 
-                undergrad_sql = "INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES ('$student_id', '$total_credits', '$class_standing')";
+                $undergrad_sql = "INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES ('$student_id', '$total_credits', '$class_standing')";
                 if (!mysqli_query($conn, $undergrad_sql)) {
                     throw new Exception("Error creating undergrad record: " . mysqli_error($conn));
                 }
@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // get original student email for account table
             $student_row = mysqli_fetch_assoc($check_result);
-            $original_email = student_row['email'];
+            $original_email = $student_row['email'];
 
             // update student table
             $student_sql = "UPDATE student SET name = '$name, email = '$email', dept_name = '$dept_name' WHERE student_id = '$student_id'";
@@ -206,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // update student for each type
             if ($student_type == 'undergraduate') {
-                $total_credits = $_POST['total_credits'] ?? 0 // ?? 0 if null set to 0
+                $total_credits = $_POST['total_credits'] ?? 0; // ?? 0 if null set to 0
                 $class_standing = $_POST['class_standing'] ?? 'Freshman';
 
                 // check for undergrad record
@@ -258,6 +258,183 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_rollback($conn);
             $error_message = $e->getMessage();
         }
+    } else if ($action == 'search') {
+        // search for existing student to edit
+        $student_id = $_POST['student_id'];
+
+        $search_sql = "SELECT s.*,
+                        u.total_credits as undergrad_credits, u.class_standing,
+                        m.total_credits as master_credits,
+                        CASE
+                            WHEN u.student_id IS NOT NULL THEN 'undergraduate'
+                            WHEN m.student_id IS NOT NULL THEN 'master'
+                            WHEN p.student_id IS NOT NULL THEN 'phd'
+                            ELSE NULL
+                        END as student_type
+                    FROM student s
+                    LEFT JOIN undergraduate u ON s.student_id = u.student_id
+                    LEFT JOIN master m ON s.student_id = m.student_id
+                    LEFT JOIN PhD p ON s.student_id = p.student_id
+                    WHERE s.student_id = '$student_id'";
+
+        $result = mysqli_query($conn, $search_sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $name = $row['name'];
+            $email = $row['email'];
+            $dept_name = $row['dept_name'];
+            $student_type = $row['student_type'];
+
+            if ($student_type == 'undergraduate') {
+                $total_credits = $row['undergrad_credits'];
+                $class_standing = $row['class_standing'];
+            } else if ($student_type == 'master') {
+                $total_credits = $row['master_credits'];
+            }
+        } else {
+            $error_message = "Student not found.";
+        }
     }
 }
+
+// get list of departments for dropdown
+$dept_query = "SELECT dept_name FROM department";
+$dept_result = mysqli_query($conn, $dept_query);
+
+// *********************
+// END OF PHP LOGIC (mostly)
+// *********************
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Account Management</title>
+</head>
+<body>
+    <div>
+        <a href="index.html">Home</a> |
+        <a href="student_register.php">Course Registration</a> |
+        <a href="student_history.php">Course History</a>
+    </div>
+
+    <?php if ($success_message): ?>
+        <div><strong><?php echo $success_message; ?></strong></div>
+    <?php endif; ?>
+
+    <?php if ($error_message): ?>
+        <div><strong><?php echo $error_message; ?></strong></div>
+    <?php endif; ?>
+
+    <h2>Search for Existing Student</h2>
+    <form method="post" action="">
+        <input type="hidden" name="action" value="search">
+        <div>
+            <label for="student_id_search">Student ID:</label>
+            <input type="text" id="student_id_search" name="student_id" required>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <h2><?php echo $student_id ? 'Update Student Account' : 'Create New Student Account'; ?></h2>
+    <form method="post" action="">
+        <input type="hidden" name="action" value="<?php echo $student_id ? 'update' : 'create'; ?>">
+
+        <div>
+            <label for="student_id_form">Student ID:</label>
+            <input type="text" id="student_id_form" name="student_id" value="<?php echo $student_id; ?>" <?php echo $student_id ? 'readonly' : ''; ?> required>
+        </div>
+
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="student_id" value="<?php echo $name; ?>" required>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
+        </div>
+
+        <div>
+            <label for="dept_name">Department:</label>
+            <select id="dept_name" name="dept_name" required>
+                <option value="">Select Department</option>
+                <?php
+                $departments = array();
+                if (mysqli_num_rows($dept_result) > 0) {
+                    mysqli_data_seek($dept_result, 0); // reset result pointer
+                    while($dept_row = mysqli_fetch_assoc($dept_result)) {
+                        $departments[] = $dept_row['dept_name'];
+                        $selected = ($dept_row['dept_name'] == $dept_name) ? 'selected' : '';
+                        echo "<option value'" . $dept_row['dept_name'] . "' $selected>" . $dept_row['dept_name'] . "</option";
+                    }
+                }
+                ?>
+                <option value="other" <?php echo (!empty($dept_name) && !in_array($dept_name, $departments)) ? 'selected' : ''; ?>>Other</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="other_dept">If Other, Enter Department Name:</label>
+            <input type="text" id="other_dept" name="other_dept" value="<?php echo (!empty($dept_name) && !in_array($dept_name, $departments)) ? $dept_name : ''; ?>">
+        </div>
+
+        <?php if (!$student_id): ?>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <?php endif; ?>
+
+        <div>
+            <label for="student_type"> Student Type:</label>
+            <select id="student_type" name="student_type" required>
+                <option value="">Select Type</option>
+                <option value="undergraduate" <?php echo ($student_type == 'undergraduate') ? 'selected' : ''; ?>>Undergraduate</option>
+                <option value="master" <?php echo ($student_type == 'master') ? 'selected' : ''; ?>>Master</option>
+                <option value="phd" <?php echo ($student_type == 'phd') ? 'selected' : ''; ?>>PhD</option>
+            </select>
+        </div>
+
+        <!-- fields for undergraduate -->
+        <?php if ($student_type == 'undergraduate'): ?>
+        <div id="undergraduate_fields">
+            <div>
+                <label for="total_credits_ug">Total Credits:</label>
+                <input type="number" id="total_credits_ug" name="total_credits" value="<?php echo $total_credits; ?>" min="0">
+            </div>
+            <div>
+                <label for="class_standing">Class Standing:</label>
+                <select id="class_standing" name="class_standing">
+                    <option value="Freshman" <?php echo ($class_standing == 'Freshman') ? 'selected' : ''; ?>>Freshman</option>
+                    <option value="Sophomore" <?php echo ($class_standing == 'Sophomore') ? 'selected' : ''; ?>>Sophomore</option>
+                    <option value="Junior" <?php echo ($class_standing == 'Junior') ? 'selected' : ''; ?>>Junior</option>
+                    <option value="Senior" <?php echo ($class_standing == 'Senior') ? 'selected' : ''; ?>>Senior</option>
+                </select>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <!-- fields for masters -->
+        <?php if ($student_type == 'master'): ?>
+        <div id="master_fields">
+            <div>
+                <label for="total_credits_ms">Total Credits:</label>
+                <input type="number" id="total_credits_ms" name="total_credits" value="<?php echo $total_credits; ?>" min="0">
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <button type="submit"><?php echo $student_id ? 'Update Account' : 'Create Account'; ?></button>
+        <button type="reset">Reset Form</button>
+        <?php if ($student_id): ?>
+            <a href="student.php"><button type="button">New Student</button></a>
+        <?php endif; ?>
+    </form>
+</body>
+</html>

@@ -157,6 +157,184 @@ while ($row = mysqli_fetch_assoc($section_result)) {
             $error_message = $e->getMessage();
         }
     } else if ($_POST['action'] == 'update_section') {
-        
+        $course_id = $_POST['course_id'];
+        $section_id = $_POST['section_id'];
+        $instructor_id = isset($_POST['instructor_id']) && !empty($_POST['instructor_id']) ? $_POST['instructor_id'] : null;
+        $classroom_id = isset($_POST['classroom_id']) && !empty($_POST['classroom_id']) ? $_POST['classroom_id'] : null;
+        $time_slot_id = isset($_POST['time_slot_id']) && !empty($_POST['time_slot_id']) ? $_POST['time_slot_id'] : null;
+
+        // start transaction
+        mysqli_begin_transaction($conn);
+
+        try {
+            // check if section already exists
+            $check_sql = "SELECT * FROM section WHERE course_id = '$course_id' AND section_id = '$section_id'
+                            AND semester = 'Spring' AND year = 2025";
+            $check_result = mysqli_query($conn, $check_sql);
+
+            if (mysqli_num_rows($check_result) == 0) {
+                throw new Exception("Section does not exist!");
+            }
+
+            $current_section = mysqli_fetch_assoc($check_result);
+
+            // check instructor constraints if instructor is changing
+            if ($instructor_id && $instructor_id != $current_section['instructor_id']) {
+                // check if instructor is already assigned to 2 sections (excluding current section)
+                $instructor_sections_sql = "SELECT COUNT(*) as count FROM section
+                                            WHERE instructor_id = '$instructor_id'
+                                            AND semester = 'Spring' AND year = 2025
+                                            AND NOT (course_id = '$course_id' AND section_id = '$section_id')";
+                 $instructor_sections_result = mysqli_query($conn, $instructor_sections_sql);
+                 $instructor_sections_count = mysqli_fetch_assoc($instructor_sections_result)['count'];
+
+                 if ($instructor_sections_count >= 2) {
+                    throw new Exception("Instructor is already assigned to 2 sections for this semester.");
+                 }
+            }
+
+            // check for tie slot conflicts with instructor's other sections
+            if ($instructor_id && $time_slot_id) {
+                $conflict_sql = "SELECT s.* FROM section s
+                                            JOIN time_slot ts1 ON s.time_slot_id = ts1.time_slot_id
+                                            JOIN time_slot ts2 ON ts2.time_slot_id = '$time_slot_id'
+                                            WHERE s.instructor_id = '$instructor_id'
+                                            AND s.semester = 'Spring' AND s.year = 2025
+                                            AND NOT (s.course_id = '$course_id' AND s.section_id = '$section_id')
+                                            AND ts1.day = ts2.day
+                                            AND ((ts1.start_time <= ts2.start_time AND ts1.end_time > ts2.start_time)
+                                                OR (ts1.start_time < ts2.end_time AND ts1.end_time >= ts2.end_time)
+                                                OR (ts1.start_time >= ts2.start_time AND ts1.end_time <= ts2.end_time))";
+                $conflict_result = mysqli_query($conn, $conflict_sql);
+
+                if (mysqli_num_rows($conflict_result) > 0) {
+                    throw new Exception("Time slot conflict with instructor's existing schedule.");
+                }
+            }
+
+            // check classroom constraints
+            if ($classroom_id && time_slot_id) {
+                // check if classroom is already booked for this time slot (excluding current section)
+                $classroom_conflict_sql = "SELECT s.* FROM section s
+                                            JOIN time_slot ts1 ON s.time_slot_id = ts1.time_slot_id
+                                            JOIN time_slot ts2 ON ts2.time_slot_id = '$time_slot_id'
+                                            WHERE s.classroom_id = '$classroom_id'
+                                            AND s.semester = 'Spring' AND s.year = 2025
+                                            AND NOT (s.course_id = '$course_id' AND s.section_id = '$section_id')
+                                            AND ts1.day = ts2.day
+                                            AND ((ts1.start_time <= ts2.start_time AND ts1.end_time > ts2.start_time)
+                                                OR (ts1.start_time < ts2.end_time AND ts1.end_time >= ts2.end_time)
+                                                OR (ts1.start_time >= ts2.start_time AND ts1.end_time <= ts2.end_time))";
+                $classroom_conflict_result = mysqli_query($conn, $classroom_conflict_sql);
+
+                if (mysqli_num_rows($classroom_conflict_result) > 0) {
+                    throw new Exception("Classroom already booked for this time slot.");
+                }
+            }
+
+            // update section
+            $sql = "UPDATE section SET
+                    instructor_id = " . ($instructor_id ? "'$instructor_id'" : "NULL") . ",
+                    classroom_id = " . ($classroom_id ? "'$classroom_id'" : "NULL") . ",
+                    time_slot_id = " . ($time_slot_id ? "'$time_slot_id'" : "NULL") . "
+                    WHERE course_id = '$course_id' AND section_id = '$section_id'
+                    AND semester = 'Spring' AND year = 2025";
+
+            if (!mysqli_query($conn, $sql)) {
+                throw new Exception("Error updating section: " . mysqli_error($conn));
+            }
+
+            mysqli_commit($conn);
+            $success_message = "Section updated successfully";
+
+            // refresh page to show updated sections
+            header("Location: admin.php");
+            exit();
+
+        } catch (Exception $e) {
+            mysqli_rollback($conn);
+            $error_message = $e->getMessage();
+        }
+    } else if ($_POST['action'] == 'assign_ta') {
+        $course_id = $_POST['course_id'];
+        $section_id = $_POST['section_id'];
+
+        // start transaction
+        mysqli_begin_transaction($conn);
+
+        try {
+            // check if section exists
+            $check_sql = "SELECT * FROM section WHERE course_id = '$course_id' AND section_id = '$section_id'
+                            AND semester = 'Spring' AND year = 2025";
+            $check_result = mysqli_query($conn, $check_sql);
+
+            if (mysqli_num_rows($check_result) == 0) {
+                throw new Exception("Section does not exist!");
+            }
+
+            // check if section has more than 10 students
+            $student_count_sql = "SELECT COUNT(*) as count FROM take
+                                    WHERE course_id = '$course_id' AND section_id = '$section_id'
+                                    AND semester = 'Spring' AND year = 2025";
+             $student_count_result = mysqli_query($conn, $student_count_sql);
+             $student_count = mysqli_fetch_assoc($student_count_result)['count'];
+
+             if ($student_count <= 10) {
+                throw new Exception("Section does not have more than 10 students. TA not required.");
+             }
+
+             // check if TA is already assigned
+             $ta_check_sql = "SELECT * FROM TA
+                                WHERE course_id = '$course_id' AND section_id = '$section_id'
+                                AND semester = 'Spring' AND year = 2025";
+            $ta_check_result = mysqli_query($conn, $ta_check_sql);
+
+            if (mysqli_num_rows($ta_check_result) > 0) {
+                throw new Exception("TA is already assigned to this section.");
+            }
+
+            // find eligible PhD student who is not already a TA
+            $phd_sql = "SELECT p.student_id = s.student_id
+                        JOIN students s ON p.student_id = s.student_id
+                        WHERE NOT EXISTS (
+                            SELECT 1 FROM TA
+                            WHERE TA.student_id = p.student_id
+                            AND TA.semester = 'Spring' AND TA.year = 2025
+                        )
+                        LIMIT 1";
+            $phd_result = mysqli_query($conn, $phd_sql);
+
+            if (mysqli_num_rows($phd_result) == 0) {
+                throw new Exception("No eligible PhD students available for TA assignment.");
+            }
+
+            $phd_student = mysqli_fetch_assoc($phd_result);
+            $ta_id = $phd_student['student_id'];
+
+            // assign PhD student as a TA
+            $assign_ta_sql = "INSERT INTO TA (student_id, course_id, section_id, semester, year)
+                                VALUES ('$ta_id', '$course_id', '$section_id', 'Spring', 2025)";
+            
+            if (!mysqli_query($conn, $assign_ta_sql)) {
+                throw new Exception("Error assigning TA: " . mysqli_error($conn));
+            }
+
+            mysqli_commit($conn);
+            $success_message = "TA ({$phd_student['name']}) assigned to section successfully!";
+
+            // refresh page to show updated sections
+            header("Location: admin.php");
+            exit();
+
+        } catch (Exception $e) {
+            mysqli_rollback($conn);
+            $error_message = $e->getMessage();
+        }
     }
  }
+ ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
