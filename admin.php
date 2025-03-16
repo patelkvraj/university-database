@@ -46,11 +46,11 @@ while($row = mysqli_fetch_assoc($classroom_result)) {
 }
 
 // fetch existing sections for Spring 2025
-$section_sql = "SELECT s.*, c.course_name, i.instructor_name, cl.building, cl.room_number, ts.day, ts.start_time, ts.end_time, (SELECT COUNT(*) FROM take WHERE t.course_id = s.course_id AND t.section_id = s.section_id
+$section_sql = "SELECT s.*, c.course_name, i.instructor_name, cl.building, cl.room_number, ts.day, ts.start_time, ts.end_time, (SELECT COUNT(*) FROM take t WHERE t.course_id = s.course_id AND t.section_id = s.section_id
                     AND t.semester = s.semester AND t.year = s.year) as enrolled_students
                 FROM section s
                 JOIN course c ON s.course_id = c.course_id
-                LEFT JOIN instructor i ON s.instructor_id = i.instructor.id
+                LEFT JOIN instructor i ON s.instructor_id = i.instructor_id
                 LEFT JOIN classroom cl ON s.classroom_id = cl.classroom_id
                 LEFT JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
                 WHERE s.semester = 'Spring' AND s.year = 2025
@@ -86,7 +86,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
             if ($instructor_id) {
                 // check if instructor is already assigned to 2 sections
                 $instructor_sections_sql = "SELECT COUNT(*) as count FROM section
-                                            WHERE instuctor_id = '$instructor_id'
+                                            WHERE instructor_id = '$instructor_id'
                                             AND semester = 'Spring' AND year = 2025";
                 $instructor_sections_result = mysqli_query($conn, $instructor_sections_sql);
                 $instructor_sections_count = mysqli_fetch_assoc($instructor_sections_result)['count'];
@@ -139,7 +139,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
                     VALUES ('$course_id', '$section_id', 'Spring', 2025, " .
                     ($instructor_id ? "'$instructor_id'" : "NULL") . ", " .
                     ($classroom_id ? "'$classroom_id'" : "NULL") . ", " .
-                    ($time_slot_id ? "'time_slot_id'" : "NULL") . ")";
+                    ($time_slot_id ? "'$time_slot_id'" : "NULL") . ")";
 
             if (!mysqli_query($conn, $sql)) {
                 throw new Exception("Error creating section: " . mysqli_error($conn));
@@ -294,7 +294,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
             }
 
             // find eligible PhD student who is not already a TA
-            $phd_sql = "SELECT p.student_id = s.student_id
+            $phd_sql = "SELECT p.student_id, s.name FROM PhD p
                         JOIN students s ON p.student_id = s.student_id
                         WHERE NOT EXISTS (
                             SELECT 1 FROM TA
