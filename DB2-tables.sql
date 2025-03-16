@@ -188,6 +188,23 @@ insert into account (email, password, type) values ('Yelena_Rykalova@uml.edu', '
 insert into account (email, password, type) values ('Johannes_Weis@uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('Charles_Wilkes@uml.edu', '123456', 'instructor');
 
+INSERT INTO account (email, password, type) VALUES
+('john.smith@student.uml.edu', 'password123', 'student'),
+('emma.johnson@student.uml.edu', 'password123', 'student'),
+('michael.brown@student.uml.edu', 'password123', 'student'),
+('sophia.davis@student.uml.edu', 'password123', 'student'),
+('james.wilson@student.uml.edu', 'password123', 'student'),
+('olivia.martinez@student.uml.edu', 'password123', 'student'),
+('william.taylor@student.uml.edu', 'password123', 'student'),
+('ava.anderson@student.uml.edu', 'password123', 'student'),
+('noah.thomas@student.uml.edu', 'password123', 'student'),
+('isabella.jackson@student.uml.edu', 'password123', 'student'),
+('liam.white@student.uml.edu', 'password123', 'student'),
+('charlotte.harris@student.uml.edu', 'password123', 'student'),
+('benjamin.clark@student.uml.edu', 'password123', 'student'),
+('amelia.lewis@student.uml.edu', 'password123', 'student'),
+('henry.walker@student.uml.edu', 'password123', 'student');
+
 --department
 insert into department (dept_name, location) value ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
 
@@ -199,14 +216,58 @@ insert into instructor (instructor_id, instructor_name, title, dept_name, email)
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
 
 --student
+INSERT INTO student (student_id, name, email, dept_name) VALUES
+('UG001', 'John Smith', 'john.smith@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('UG002', 'Emma Johnson', 'emma.johnson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('UG003', 'Michael Brown', 'michael.brown@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('UG004', 'Sophia Davis', 'sophia.davis@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('UG005', 'James Wilson', 'james.wilson@student.uml.edu', 'Miner School of Computer & Information Sciences');
 
---php
+INSERT INTO student (student_id, name, email, dept_name) VALUES
+('MS001', 'Olivia Martinez', 'olivia.martinez@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('MS002', 'William Taylor', 'william.taylor@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('MS003', 'Ava Anderson', 'ava.anderson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('MS004', 'Noah Thomas', 'noah.thomas@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('MS005', 'Isabella Jackson', 'isabella.jackson@student.uml.edu', 'Miner School of Computer & Information Sciences');
+
+INSERT INTO student (student_id, name, email, dept_name) VALUES
+('PH001', 'Liam White', 'liam.white@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('PH002', 'Charlotte Harris', 'charlotte.harris@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('PH003', 'Benjamin Clark', 'benjamin.clark@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('PH004', 'Amelia Lewis', 'amelia.lewis@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('PH005', 'Henry Walker', 'henry.walker@student.uml.edu', 'Miner School of Computer & Information Sciences');
+
+--phd
+INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES
+('PH001', 'Passed', '2023-05-15', NULL),
+('PH002', 'Passed', '2022-11-10', NULL),
+('PH003', 'Scheduled', NULL, NULL),
+('PH004', 'Passed', '2023-09-20', NULL),
+('PH005', 'Not Started', NULL, NULL);
 
 --master
+INSERT INTO master (student_id, total_credits) VALUES
+('MS001', 18),
+('MS002', 24),
+('MS003', 12),
+('MS004', 30),
+('MS005', 6);
 
 --undergrad
+INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
+('UG001', 75, 'Junior'),
+('UG002', 30, 'Sophomore'),
+('UG003', 15, 'Freshman'),
+('UG004', 90, 'Senior'),
+('UG005', 45, 'Sophomore');
 
 --classroom
+INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
+('CL001', 'Dandeneau Hall', '301', 20),
+('CL002', 'Dandeneau Hall', '302', 25),
+('CL003', 'Dandeneau Hall', '401', 30),
+('CL004', 'Olsen Hall', '201', 40),
+('CL005', 'Olsen Hall', '202', 35);
 
 --time slot
 insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
@@ -232,14 +293,108 @@ insert into section (course_id, section_id, semester, year) value ('COMP2010', '
 insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section102', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP2040', 'Section201', 'Spring', 2024);
 
+		--add current enrollments
+INSERT INTO section (course_id, section_id, semester, year, instructor_id, classroom_id, time_slot_id) VALUES
+('COMP1010', 'Section001', 'Spring', 2025, '1', 'CL001', 'TS1'),
+('COMP1010', 'Section002', 'Spring', 2025, '2', 'CL002', 'TS2'),
+('COMP1020', 'Section001', 'Spring', 2025, '3', 'CL003', 'TS3'),
+('COMP2010', 'Section001', 'Spring', 2025, '4', 'CL004', 'TS4'),
+('COMP2040', 'Section001', 'Spring', 2025, '5', 'CL005', 'TS5');
+
+		--assign instructors to sections
+UPDATE section SET instructor_id = '1', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1010' AND section_id = 'Section101';
+UPDATE section SET instructor_id = '1', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP1010' AND section_id = 'Section102';
+UPDATE section SET instructor_id = '2', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP1010' AND section_id = 'Section103';
+UPDATE section SET instructor_id = '2', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP1010' AND section_id = 'Section104';
+UPDATE section SET instructor_id = '3', classroom_id = 'CL005', time_slot_id = 'TS5' WHERE course_id = 'COMP1020' AND section_id = 'Section101';
+UPDATE section SET instructor_id = '3', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1020' AND section_id = 'Section102';
+UPDATE section SET instructor_id = '4', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP2010' AND section_id = 'Section101';
+UPDATE section SET instructor_id = '4', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP2010' AND section_id = 'Section102';
+UPDATE section SET instructor_id = '5', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP2040' AND section_id = 'Section201';
+
 --prereq
+INSERT INTO prereq (course_id, prereq_id) VALUES
+('COMP1020', 'COMP1010'),
+('COMP2010', 'COMP1020'),
+('COMP2040', 'COMP2010');
 
---advise
+--advise - for phd students
+INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES
+('1', 'PH001', '2022-01-15', NULL),
+('2', 'PH002', '2021-09-01', NULL),
+('3', 'PH003', '2023-01-10', NULL),
+('4', 'PH004', '2023-05-20', NULL),
+('5', 'PH005', '2023-09-05', NULL);
 
---ta
+--ta - for sections with more than 10 students
+INSERT INTO TA (student_id, course_id, section_id, semester, year) VALUES
+('PH001', 'COMP2040', 'Section001', 'Spring', 2025);
 
 --mastergrader
+INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VALUES
+('MS001', 'COMP1010', 'Section001', 'Spring', 2025),
+('MS002', 'COMP1010', 'Section002', 'Spring', 2025),
+('MS003', 'COMP1020', 'Section001', 'Spring', 2025);
 
 --undegradgrader
+INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
+('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
 
 --take
+		--past courses
+INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES
+-- John Smith's completed courses
+('UG001', 'COMP1010', 'Section101', 'Fall', 2022, 'A'),
+('UG001', 'COMP1020', 'Section101', 'Spring', 2023, 'A-'),
+('UG001', 'COMP2010', 'Section101', 'Fall', 2023, 'B+'),
+
+-- Emma Johnson's completed courses
+('UG002', 'COMP1010', 'Section102', 'Fall', 2022, 'B+'),
+('UG002', 'COMP1020', 'Section102', 'Spring', 2023, 'B'),
+
+-- Michael Brown's completed courses
+('UG003', 'COMP1010', 'Section103', 'Fall', 2023, 'B'),
+
+-- Sophia Davis's completed courses
+('UG004', 'COMP1010', 'Section101', 'Fall', 2021, 'A'),
+('UG004', 'COMP1020', 'Section101', 'Spring', 2022, 'A'),
+('UG004', 'COMP2010', 'Section101', 'Fall', 2022, 'A-'),
+('UG004', 'COMP2040', 'Section201', 'Spring', 2023, 'B+'),
+
+-- James Wilson's completed courses
+('UG005', 'COMP1010', 'Section102', 'Fall', 2022, 'C+'),
+('UG005', 'COMP1020', 'Section102', 'Spring', 2023, 'B-'),
+
+-- Master's students
+('MS001', 'COMP2010', 'Section101', 'Fall', 2023, 'A'),
+('MS002', 'COMP2040', 'Section201', 'Spring', 2023, 'A-'),
+('MS003', 'COMP2010', 'Section102', 'Fall', 2023, 'A-'),
+('MS004', 'COMP2040', 'Section201', 'Spring', 2023, 'B+'),
+
+-- PhD students
+('PH001', 'COMP2010', 'Section101', 'Fall', 2022, 'A'),
+('PH001', 'COMP2040', 'Section201', 'Spring', 2023, 'A'),
+('PH002', 'COMP2010', 'Section102', 'Fall', 2022, 'A-'),
+('PH002', 'COMP2040', 'Section201', 'Spring', 2023, 'A');
+
+
+		-- current courses
+INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES
+-- Undergraduate students
+('UG001', 'COMP2040', 'Section001', 'Spring', 2025),
+('UG002', 'COMP2010', 'Section001', 'Spring', 2025),
+('UG003', 'COMP1020', 'Section001', 'Spring', 2025),
+('UG004', 'COMP2040', 'Section001', 'Spring', 2025),
+('UG005', 'COMP2010', 'Section001', 'Spring', 2025),
+
+-- Master's students
+('MS001', 'COMP2040', 'Section001', 'Spring', 2025),
+('MS002', 'COMP2040', 'Section001', 'Spring', 2025),
+('MS003', 'COMP2040', 'Section001', 'Spring', 2025),
+('MS004', 'COMP2040', 'Section001', 'Spring', 2025),
+('MS005', 'COMP2040', 'Section001', 'Spring', 2025),
+
+-- PhD students
+('PH003', 'COMP2040', 'Section001', 'Spring', 2025),
+('PH004', 'COMP2040', 'Section001', 'Spring', 2025),
+('PH005', 'COMP2040', 'Section001', 'Spring', 2025);
