@@ -124,7 +124,7 @@ create table advise
 
 create table TA
 	(student_id		varchar(10),
-	 course_id		varchar(8),
+	 course_id		varchar(20),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -138,7 +138,7 @@ create table TA
 
 create table masterGrader
 	(student_id		varchar(10),
-	 course_id		varchar(8),
+	 course_id		varchar(20),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -152,7 +152,7 @@ create table masterGrader
 
 create table undergraduateGrader
 	(student_id		varchar(10),
-	 course_id		varchar(8),
+	 course_id		varchar(20),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -166,7 +166,7 @@ create table undergraduateGrader
 
 create table take
 	(student_id		varchar(10), 
-	 course_id		varchar(8),
+	 course_id		varchar(20),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -206,14 +206,14 @@ INSERT INTO account (email, password, type) VALUES
 ('henry.walker@student.uml.edu', 'password123', 'student');
 
 --department
-insert into department (dept_name, location) value ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
+insert into department (dept_name, location) values ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
 
 --instructor
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) value ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu');
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu');
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu');
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
 
 --student
 INSERT INTO student (student_id, name, email, dept_name) VALUES
@@ -270,11 +270,11 @@ INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
 ('CL005', 'Olsen Hall', '202', 35);
 
 --time slot
-insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS2', 'MoWeFr', '12:00:00', '12:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS3', 'MoWeFr', '13:00:00', '13:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS4', 'TuTh', '11:00:00', '12:15:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) value ('TS5', 'TuTh', '12:30:00', '13:45:00');
+insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
+insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS2', 'MoWeFr', '12:00:00', '12:50:00');
+insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS3', 'MoWeFr', '13:00:00', '13:50:00');
+insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS4', 'TuTh', '11:00:00', '12:15:00');
+insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS5', 'TuTh', '12:30:00', '13:45:00');
 
 --course
 insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
@@ -283,34 +283,46 @@ insert into course (course_id, course_name, credits) values ('COMP2010', 'Comput
 insert into course (course_id, course_name, credits) values ('COMP2040', 'Computing IV', 3);
 
 --section
-insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section101', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section102', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section103', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section104', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP1020', 'Section101', 'Spring', 2024);
-insert into section (course_id, section_id, semester, year) value ('COMP1020', 'Section102', 'Spring', 2024);
-insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section101', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section102', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) value ('COMP2040', 'Section201', 'Spring', 2024);
+-- First, create all the sections needed
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section101', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section102', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section103', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section104', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section101', 'Spring', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section102', 'Spring', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section101', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section102', 'Fall', 2023);
+insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section201', 'Spring', 2023);
 
-		--add current enrollments
-INSERT INTO section (course_id, section_id, semester, year, instructor_id, classroom_id, time_slot_id) VALUES
-('COMP1010', 'Section001', 'Spring', 2025, '1', 'CL001', 'TS1'),
-('COMP1010', 'Section002', 'Spring', 2025, '2', 'CL002', 'TS2'),
-('COMP1020', 'Section001', 'Spring', 2025, '3', 'CL003', 'TS3'),
-('COMP2010', 'Section001', 'Spring', 2025, '4', 'CL004', 'TS4'),
-('COMP2040', 'Section001', 'Spring', 2025, '5', 'CL005', 'TS5');
+-- Add Spring 2025 sections
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section001', 'Spring', 2025);
+insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section002', 'Spring', 2025);
+insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section001', 'Spring', 2025);
+insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section001', 'Spring', 2025);
+insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section001', 'Spring', 2025);
 
-		--assign instructors to sections
-UPDATE section SET instructor_id = '1', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1010' AND section_id = 'Section101';
-UPDATE section SET instructor_id = '1', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP1010' AND section_id = 'Section102';
-UPDATE section SET instructor_id = '2', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP1010' AND section_id = 'Section103';
-UPDATE section SET instructor_id = '2', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP1010' AND section_id = 'Section104';
-UPDATE section SET instructor_id = '3', classroom_id = 'CL005', time_slot_id = 'TS5' WHERE course_id = 'COMP1020' AND section_id = 'Section101';
-UPDATE section SET instructor_id = '3', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1020' AND section_id = 'Section102';
-UPDATE section SET instructor_id = '4', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP2010' AND section_id = 'Section101';
-UPDATE section SET instructor_id = '4', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP2010' AND section_id = 'Section102';
-UPDATE section SET instructor_id = '5', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP2040' AND section_id = 'Section201';
+-- Add Spring 2024 sections that are needed for the take table
+insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section101', 'Spring', 2024);
+insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section102', 'Spring', 2024);
+insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section201', 'Spring', 2024);
+
+-- Now update sections with instructors, classrooms, and time slots
+UPDATE section SET instructor_id = '1', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1010' AND section_id = 'Section101' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '1', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP1010' AND section_id = 'Section102' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '2', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP1010' AND section_id = 'Section103' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '2', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP1010' AND section_id = 'Section104' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '3', classroom_id = 'CL005', time_slot_id = 'TS5' WHERE course_id = 'COMP1020' AND section_id = 'Section101' AND semester = 'Spring' AND year = 2023;
+UPDATE section SET instructor_id = '3', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1020' AND section_id = 'Section102' AND semester = 'Spring' AND year = 2023;
+UPDATE section SET instructor_id = '4', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP2010' AND section_id = 'Section101' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '4', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP2010' AND section_id = 'Section102' AND semester = 'Fall' AND year = 2023;
+UPDATE section SET instructor_id = '5', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP2040' AND section_id = 'Section201' AND semester = 'Spring' AND year = 2023;
+
+-- Update Spring 2025 sections
+UPDATE section SET instructor_id = '1', classroom_id = 'CL001', time_slot_id = 'TS1' WHERE course_id = 'COMP1010' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
+UPDATE section SET instructor_id = '2', classroom_id = 'CL002', time_slot_id = 'TS2' WHERE course_id = 'COMP1010' AND section_id = 'Section002' AND semester = 'Spring' AND year = 2025;
+UPDATE section SET instructor_id = '3', classroom_id = 'CL003', time_slot_id = 'TS3' WHERE course_id = 'COMP1020' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
+UPDATE section SET instructor_id = '4', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP2010' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
+UPDATE section SET instructor_id = '5', classroom_id = 'CL005', time_slot_id = 'TS5' WHERE course_id = 'COMP2040' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
 
 --prereq
 INSERT INTO prereq (course_id, prereq_id) VALUES
@@ -326,43 +338,28 @@ INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES
 ('4', 'PH004', '2023-05-20', NULL),
 ('5', 'PH005', '2023-09-05', NULL);
 
---ta - for sections with more than 10 students
-INSERT INTO TA (student_id, course_id, section_id, semester, year) VALUES
-('PH001', 'COMP2040', 'Section001', 'Spring', 2025);
-
---mastergrader
-INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VALUES
-('MS001', 'COMP1010', 'Section001', 'Spring', 2025),
-('MS002', 'COMP1010', 'Section002', 'Spring', 2025),
-('MS003', 'COMP1020', 'Section001', 'Spring', 2025);
-
---undegradgrader
-INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
-('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
-
---take
-		--past courses
+--take - past courses
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES
 -- John Smith's completed courses
-('UG001', 'COMP1010', 'Section101', 'Fall', 2022, 'A'),
+('UG001', 'COMP1010', 'Section101', 'Fall', 2023, 'A'),
 ('UG001', 'COMP1020', 'Section101', 'Spring', 2023, 'A-'),
 ('UG001', 'COMP2010', 'Section101', 'Fall', 2023, 'B+'),
 
 -- Emma Johnson's completed courses
-('UG002', 'COMP1010', 'Section102', 'Fall', 2022, 'B+'),
+('UG002', 'COMP1010', 'Section102', 'Fall', 2023, 'B+'),
 ('UG002', 'COMP1020', 'Section102', 'Spring', 2023, 'B'),
 
 -- Michael Brown's completed courses
 ('UG003', 'COMP1010', 'Section103', 'Fall', 2023, 'B'),
 
 -- Sophia Davis's completed courses
-('UG004', 'COMP1010', 'Section101', 'Fall', 2021, 'A'),
-('UG004', 'COMP1020', 'Section101', 'Spring', 2022, 'A'),
-('UG004', 'COMP2010', 'Section101', 'Fall', 2022, 'A-'),
+('UG004', 'COMP1010', 'Section101', 'Fall', 2023, 'A'),
+('UG004', 'COMP1020', 'Section101', 'Spring', 2023, 'A'),
+('UG004', 'COMP2010', 'Section101', 'Fall', 2023, 'A-'),
 ('UG004', 'COMP2040', 'Section201', 'Spring', 2023, 'B+'),
 
 -- James Wilson's completed courses
-('UG005', 'COMP1010', 'Section102', 'Fall', 2022, 'C+'),
+('UG005', 'COMP1010', 'Section102', 'Fall', 2023, 'C+'),
 ('UG005', 'COMP1020', 'Section102', 'Spring', 2023, 'B-'),
 
 -- Master's students
@@ -372,13 +369,12 @@ INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALU
 ('MS004', 'COMP2040', 'Section201', 'Spring', 2023, 'B+'),
 
 -- PhD students
-('PH001', 'COMP2010', 'Section101', 'Fall', 2022, 'A'),
+('PH001', 'COMP2010', 'Section101', 'Fall', 2023, 'A'),
 ('PH001', 'COMP2040', 'Section201', 'Spring', 2023, 'A'),
-('PH002', 'COMP2010', 'Section102', 'Fall', 2022, 'A-'),
+('PH002', 'COMP2010', 'Section102', 'Fall', 2023, 'A-'),
 ('PH002', 'COMP2040', 'Section201', 'Spring', 2023, 'A');
 
-
-		-- current courses
+--take - current courses (Spring 2025)
 INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES
 -- Undergraduate students
 ('UG001', 'COMP2040', 'Section001', 'Spring', 2025),
@@ -398,3 +394,17 @@ INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES
 ('PH003', 'COMP2040', 'Section001', 'Spring', 2025),
 ('PH004', 'COMP2040', 'Section001', 'Spring', 2025),
 ('PH005', 'COMP2040', 'Section001', 'Spring', 2025);
+
+--ta - for sections with more than 10 students
+INSERT INTO TA (student_id, course_id, section_id, semester, year) VALUES
+('PH001', 'COMP2040', 'Section001', 'Spring', 2025);
+
+--mastergrader
+INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VALUES
+('MS001', 'COMP1010', 'Section001', 'Spring', 2025),
+('MS002', 'COMP1010', 'Section002', 'Spring', 2025),
+('MS003', 'COMP1020', 'Section001', 'Spring', 2025);
+
+--undegradgrader
+INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
+('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
