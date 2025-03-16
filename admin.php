@@ -213,7 +213,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
             }
 
             // check classroom constraints
-            if ($classroom_id && time_slot_id) {
+            if ($classroom_id && $time_slot_id) {
                 // check if classroom is already booked for this time slot (excluding current section)
                 $classroom_conflict_sql = "SELECT s.* FROM section s
                                             JOIN time_slot ts1 ON s.time_slot_id = ts1.time_slot_id
@@ -332,9 +332,226 @@ while ($row = mysqli_fetch_assoc($section_result)) {
         }
     }
  }
+
+ // *********************
+// END OF PHP LOGIC (mostly)
+// *********************
  ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <div>
+        <a href="index.html">Home</a>
+    </div>
+
+    <h1>Admin Panel</h1>
+
+    <?php if (!$is_admin): ?>
+        <div><strong>You do not have permission to access this page.</strong></div>
+    <?php else: ?>
+
+        <?php if ($success_message): ?>
+            <div><strong><?php echo $success_message; ?></strong></div>
+        <?php endif; ?>
+
+        <?php if ($error_message): ?>
+            <div><strong><?php echo $error_message; ?></strong></div>
+        <?php endif; ?>
+
+        <h2>Manage Spring 2025 Sections</h2>
+
+        <h3>Add New Section</h3>
+        <form method="post" action="">
+            <input type="hidden" name="action" value="add_section">
+
+            <div>
+                <label for="course_id">Course:</label>
+                <select id="course_id" name="course_id" required>
+                    <option value="">Select Course</option>
+                    <?php foreach ($courses as $course): ?>
+                        <option value="<?php echo $course['course_id']; ?>">
+                            <?php echo $course['course_id'] . ': ' . $course['course_name']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label for="section_id">Section ID:</label>
+                <input type="text" id="section_id" name="section_id" placeholder="e.g., Section201" required>
+            </div>
+
+            <div>
+                <label for="instructor_id">Instructor:</label>
+                <select id="instructor_id" name="instructor_id">
+                    <option value="">-- Not Assigned --</option>
+                    <?php foreach ($instructors as $instructor): ?>
+                        <option value="<?php echo $instructor['instructor_id']; ?>">
+                            <?php echo $instructor['instructor_name'] . ' (' . $instructor['title'] . ')'; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label for="classroom_id">Classroom:</label>
+                <select id="classroom_id" name="classroom_id">
+                    <option value="">-- Not Assigned --</option>
+                    <?php foreach ($classrooms as $classroom): ?>
+                        <option value="<?php echo $classroom['classroom_id']; ?>">
+                            <?php echo $classroom['building'] . ' ' . $classroom['room_number'] . ' (Capacity: ' . $classroom['capacity'] . ')'; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label for="time_slot_id">Time Slot:</label>
+                <select id="time_slot_id" name="time_slot_id">
+                    <option value="">-- Not Scheduled --</option>
+                    <?php foreach ($time_slots as $time_slot): ?>
+                        <option value="<?php echo $time_slot['time_slot_id']; ?>">
+                            <?php echo $time_slot['day'] . ' ' . date("g:i A", strtotime($time_slot['start_time'])) . ' - ' . date("g:i A", strtotime($time_slot['end_time'])); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <button type="submit">Add Section</button>
+        </form>
+
+        <hr>
+
+        <h3>Current Sections</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Section</th>
+                    <th>Instructor</th>
+                    <th>Schedule</th>
+                    <th>Location</th>
+                    <th>Enrollment</th>
+                    <th>TA Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($sections as $section): ?>
+                    <?php
+                        // check if TA is assigned
+                        $ta_assigned = false;
+                        $ta_info = null;
+
+                        $ta_sql = "SELECT t.*, s.name FROM TA t
+                                    JOIN student s ON t.student_id = s.student_id
+                                    WHERE t.course_id = '{$section['course_id']}'
+                                    AND t.section_id = '{$section['section_id']}'
+                                    AND t.semester = 'Spring' AND t.year = 2025";
+                        $ta_result = mysqli_query($conn, $ta_sql);
+
+                        if (mysqli_num_rows($ta_result) > 0) {
+                            $ta_assigned = true;
+                            $ta_info = mysqli_fetch_assoc($ta_result);
+                        }
+
+                        // determine TA status text
+                        $ta_status_text = '';
+
+                        if ($ta_assigned) {
+                            $ta_status_text = 'TA Assigned: ' . $ta_info['name'];
+                        } else if ($section['enrolled_students'] > 10) {
+                            $ta_status_text = 'TA Needed';
+                        } else {
+                            $ta_status_text = 'No TA Required';
+                        }
+                    ?>
+                    <tr>
+                        <td><?php echo $section['course_id'] . ': ' . $section['course_name']; ?></td>
+                        <td><?php echo $section['section_id']; ?></td>
+                        <td><?php echo $section['instructor_name'] ?? 'Not Assigned'; ?></td>
+                        <td>
+                            <?php
+                                if ($section['day'] && $section['start_time'] && $section['end_time']) {
+                                    echo "{$section['day']} " . date("g:i A", strtotime($section['start_time'])) . ' - ' . date("g:i A", strtotime($section['end_time']));
+                                } else {
+                                    echo "Not Scheduled";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                if ($section['building'] && $section['room_number']) {
+                                    echo "{$section['building']} {$section['room_number']}";
+                                } else {
+                                    echo "Not Assigned";
+                                }
+                            ?>
+                        </td>
+                        <td><?php echo $section['enrolled_students']; ?>/15</td>
+                        <td><?php echo $ta_status_text; ?></td>
+                        <td>
+                            <!-- Edit Section Form -->
+                             <form method="post" action="">
+                                <input type="hidden" name="action" value="update_section">
+                                <input type="hidden" name="course_id" value="<?php echo $section['course_id']; ?>">
+                                <input type="hidden" name="section_id" value="<?php echo $section['section_id']; ?>">
+
+                                <select name="instructor_id">
+                                    <option value="">-- Select Instructor --</option>
+                                    <?php foreach ($instructors as $instructor): ?>
+                                        <option value="<?php echo $instructor['instructor_id']; ?>" <?php echo ($instructor['instructor_id'] == $section['instructor_id']) ? 'selected' : ''; ?>>
+                                            <?php echo $instructor['instructor_name']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <select name="classroom_id">
+                                    <option value="">-- Select Classroom --</option>
+                                    <?php foreach ($classrooms as $classroom): ?>
+                                        <option value="<?php echo $classroom['classroom_id']; ?>" <?php echo ($classroom['classroom_id'] == $section['classroom_id']) ? 'selected' : ''; ?>>
+                                            <?php echo $classroom['building'] . ' ' . $classroom['room_number']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <select name="time_slot_id">
+                                    <option value="">-- Select Time Slot --</option>
+                                    <?php foreach ($time_slots as $time_slot): ?>
+                                        <option value="<?php echo $time_slot['time_slot_id']; ?>" <?php echo ($time_slot['time_slot_id'] == $section['time_slot_id']) ? 'selected' : ''; ?>>
+                                            <?php echo $time_slot['day'] . ' ' . date("g:i A", strtotime($time_slot['start_time'])); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <button type="submit">Update</button>
+                             </form>
+
+                             <?php if ($section['enrolled_students'] > 10 && !$ta_assigned): ?>
+                                <form method="post" action="">
+                                    <input type="hidden" name="action" value="assign_ta">
+                                    <input type="hidden" name="course_id" value="<?php echo $section['course_id']; ?>">
+                                    <input type="hidden" name="section_id" value="<?php echo $section['section_id']; ?>">
+                                    <button type="submit">Assign TA</button>
+                                </form>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+                <?php if (empty($sections)): ?>
+                    <tr>
+                        <td colspan="8">No sections found for Spring 2025.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</body>
+</html>
