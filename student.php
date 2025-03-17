@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else if ($action == 'create') {
         // create new student account
-        $student_id = $POST['student_id'];
+        $student_id = $_POST['student_id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
         $dept_name = $_POST['dept_name'];
@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = $_POST['name'];
         $email = $_POST['email'];
         $dept_name = $_POST['dept_name'];
-        $student_type =$_POST['student_name'];
+        $student_type = $_POST['student_type'];
 
         // handle 'other' department
         if ($dept_name == 'other' && isset($_POST['other_dept']) && !empty($_POST['other_dept'])) {
@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $original_email = $student_row['email'];
 
             // update student table
-            $student_sql = "UPDATE student SET name = '$name, email = '$email', dept_name = '$dept_name' WHERE student_id = '$student_id'";
+            $student_sql = "UPDATE student SET name = '$name', email = '$email', dept_name = '$dept_name' WHERE student_id = '$student_id'";
             if (!mysqli_query($conn, $student_sql)) {
                 throw new Exception("Error updating student record: " . mysqli_error($conn));
             }
@@ -352,7 +352,7 @@ $dept_result = mysqli_query($conn, $dept_query);
 
         <div>
             <label for="name">Full Name:</label>
-            <input type="text" id="name" name="student_id" value="<?php echo $name; ?>" required>
+            <input type="text" id="name" name="name" value="<?php echo $name; ?>" required>
         </div>
 
         <div>
@@ -371,7 +371,7 @@ $dept_result = mysqli_query($conn, $dept_query);
                     while($dept_row = mysqli_fetch_assoc($dept_result)) {
                         $departments[] = $dept_row['dept_name'];
                         $selected = ($dept_row['dept_name'] == $dept_name) ? 'selected' : '';
-                        echo "<option value'" . $dept_row['dept_name'] . "' $selected>" . $dept_row['dept_name'] . "</option";
+                        echo "<option value='" . $dept_row['dept_name'] . "' $selected>" . $dept_row['dept_name'] . "</option";
                     }
                 }
                 ?>
