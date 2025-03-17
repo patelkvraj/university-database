@@ -407,4 +407,4 @@ INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VAL
 
 -- undegradgrader
 INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
-('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
+('UG004', 'COMP1010', 'Section001', 'Spring', 2025); 
