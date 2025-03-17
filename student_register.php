@@ -214,4 +214,171 @@ if (isset($_POST['register'])) {
         }
     }
 }
+
+// *********************
+// END OF PHP LOGIC (mostly)
+// *********************
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course Registration</title>
+</head>
+<body>
+    <div>
+        <a href="index.html">Home</a> |
+        <a href="student.php">Student Account</a> |
+        <a href="student_history.php">Course History</a>
+    </div>
+
+    <h1>Student Course Registration</h1>
+
+    <?php if ($success_message): ?>
+        <div><strong><?php echo $success_message; ?></strong></div>
+    <?php endif; ?>
+
+    <?php if ($error_message): ?>
+        <div><strong><?php echo $error_message; ?></strong></div>
+    <?php endif; ?>
+
+    <form method="post" action="">
+        <div>
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" value="<?php echo $student_id; ?>" required>
+        </div>
+        <button type="submit" name="search_student">Search</button>
+    </form>
+
+    <?php if ($student_info): ?>
+        <hr>
+        <div>
+            <h3>Student Information</h3>
+            <p><strong>Name:</strong> <?php echo $student_info['name']; ?></p>
+            <p><strong>ID:</strong> <?php echo $student_info['student_id']; ?></p>
+            <p><strong>Department:</strong> <?php echo $student_info['dept_name']; ?></p>
+            <p><strong>Student Type:</strong> <?php echo ucfirst($student_info['student_type']); ?></p>
+            <?php if ($student_info['student_type'] == 'undergraduate'): ?>
+                <p><strong>Total Credits:</strong> <?php echo $student_info['undergrad_credits']; ?></p>
+                <p><strong>Class Standing:</strong> <?php echo $student_info['class_standing']; ?></p>
+            <?php elseif ($student_info['student_type'] == 'master'): ?>
+                <p><strong>Total Credits:</strong> <?php echo $student_info['master_credits']; ?></p>
+            <?php endif; ?>
+        </div>
+
+        <h2>Available Sections (Spring 2025)</h2>
+        <?php if (empty($available_sections)): ?>
+            <p>No available sections found for registration.</p>
+        <?php else: ?>
+            <form method="post" action="">
+                <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                <div>
+                    <label for="section">Select Section:</label>
+                    <select id="section" name="section" required>
+                        <option value="">-- Select a section --</option>
+                        <?php foreach ($available_sections as $section): ?>
+                            <?php
+                                $section_full = ($section['enrolled_students'] >= 15);
+                                $section_value = "{$section['course_id']}|{$section['section_id']}|{$section['semester']}|{$section['year']}";
+                                $section_display = "{$section['course_id']} - {$section['course_name']} ({$section['section_id']})";
+                                if ($section_full) {
+                                    $section_display .= "[FULL]";
+                                } else {
+                                    $section_display .= " [{$section['enrolled_students']}/15 students]";
+                                }
+                            ?>
+                            <option value="<?php echo $section_value; ?>" <?php echo $setion_full ? 'disabled' : ''; ?>>
+                                <?php echo $section_display; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" name="register">Register for Course</button>
+            </form>
+
+            <h3>Section Details</h3>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Section</th>
+                        <th>Credits</th>
+                        <th>Instructor</th>
+                        <th>Schedule</th>
+                        <th>Location</th>
+                        <th>Enrollment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($available_sections as $section): ?>
+                        <tr>
+                            <td><?php echo $course['course_id']; ?></td>
+                            <td><?php echo $course['course_name']; ?></td>
+                            <td><?php echo $course['section_id']; ?></td>
+                            <td><?php echo $course['credits']; ?></td>
+                            <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
+                            <td>
+                                <?php
+                                    if ($section['day'] && $section['start_time'] && $section['end_time']) {
+                                        echo "{$section['day']} " . date("g:i A", strtotime($section['start_time'])) . " - " . date("g:i A", strtotime($section['end_time']));
+                                    } else {
+                                        echo "TBA";
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    if ($section['building'] && $section['room_number']) {
+                                        echo "{$section['building']} {$section['room_number']}";
+                                    } else {
+                                        echo "TBA";
+                                    }
+                                ?>
+                            </td>
+                            <td><?php echo $section['enrolled_students']; ?>/15</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <h2>Currently Registered Courses</h2>
+        <?php if (empty($registered_courses)): ?>
+            <p>No registered courses found.</p>
+        <?php else: ?>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Section</th>
+                        <th>Semester</th>
+                        <th>Year</th>
+                        <th>Credits</th>
+                        <th>Instructor</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($registered_courses as $course): ?>
+                        <tr>
+                            <td><?php echo $course['course_id']; ?></td>
+                            <td><?php echo $course['course_name']; ?></td>
+                            <td><?php echo $course['section_id']; ?></td>
+                            <td><?php echo $course['semester']; ?></td>
+                            <td><?php echo $course['year']; ?></td>
+                            <td><?php echo $course['credits']; ?></td>
+                            <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
+                            <td><?php echo $course['grade'] ?? 'In Progress'; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+</body>
+</html>

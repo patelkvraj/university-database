@@ -108,6 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Please enter a student ID.";
     }
 }
+
+// *********************
+// END OF PHP LOGIC (mostly)
+// *********************
 ?>
 
 

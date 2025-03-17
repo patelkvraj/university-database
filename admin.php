@@ -333,7 +333,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
     }
  }
 
- // *********************
+// *********************
 // END OF PHP LOGIC (mostly)
 // *********************
  ?>
