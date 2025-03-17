@@ -180,7 +180,7 @@ create table take
 		on delete cascade
 	);
 
---account
+-- account
 insert into account (email, password, type) values ('admin@uml.edu', '123456', 'admin');
 insert into account (email, password, type) values ('dbadams@cs.uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('slin@cs.uml.edu', '123456', 'instructor');
@@ -205,17 +205,17 @@ INSERT INTO account (email, password, type) VALUES
 ('amelia.lewis@student.uml.edu', 'password123', 'student'),
 ('henry.walker@student.uml.edu', 'password123', 'student');
 
---department
+-- department
 insert into department (dept_name, location) values ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
 
---instructor
+-- instructor
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu');
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
 
---student
+-- student
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('UG001', 'John Smith', 'john.smith@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('UG002', 'Emma Johnson', 'emma.johnson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
@@ -237,7 +237,7 @@ INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('PH004', 'Amelia Lewis', 'amelia.lewis@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('PH005', 'Henry Walker', 'henry.walker@student.uml.edu', 'Miner School of Computer & Information Sciences');
 
---phd
+-- phd
 INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES
 ('PH001', 'Passed', '2023-05-15', NULL),
 ('PH002', 'Passed', '2022-11-10', NULL),
@@ -245,7 +245,7 @@ INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defe
 ('PH004', 'Passed', '2023-09-20', NULL),
 ('PH005', 'Not Started', NULL, NULL);
 
---master
+-- master
 INSERT INTO master (student_id, total_credits) VALUES
 ('MS001', 18),
 ('MS002', 24),
@@ -253,7 +253,7 @@ INSERT INTO master (student_id, total_credits) VALUES
 ('MS004', 30),
 ('MS005', 6);
 
---undergrad
+-- undergrad
 INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
 ('UG001', 75, 'Junior'),
 ('UG002', 30, 'Sophomore'),
@@ -261,7 +261,7 @@ INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
 ('UG004', 90, 'Senior'),
 ('UG005', 45, 'Sophomore');
 
---classroom
+-- classroom
 INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
 ('CL001', 'Dandeneau Hall', '301', 20),
 ('CL002', 'Dandeneau Hall', '302', 25),
@@ -269,20 +269,20 @@ INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
 ('CL004', 'Olsen Hall', '201', 40),
 ('CL005', 'Olsen Hall', '202', 35);
 
---time slot
+-- time slot
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS2', 'MoWeFr', '12:00:00', '12:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS3', 'MoWeFr', '13:00:00', '13:50:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS4', 'TuTh', '11:00:00', '12:15:00');
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS5', 'TuTh', '12:30:00', '13:45:00');
 
---course
+-- course
 insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
 insert into course (course_id, course_name, credits) values ('COMP1020', 'Computing II', 3);
 insert into course (course_id, course_name, credits) values ('COMP2010', 'Computing III', 3);
 insert into course (course_id, course_name, credits) values ('COMP2040', 'Computing IV', 3);
 
---section
+-- section
 -- First, create all the sections needed
 insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section101', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section102', 'Fall', 2023);
@@ -324,13 +324,13 @@ UPDATE section SET instructor_id = '3', classroom_id = 'CL003', time_slot_id = '
 UPDATE section SET instructor_id = '4', classroom_id = 'CL004', time_slot_id = 'TS4' WHERE course_id = 'COMP2010' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
 UPDATE section SET instructor_id = '5', classroom_id = 'CL005', time_slot_id = 'TS5' WHERE course_id = 'COMP2040' AND section_id = 'Section001' AND semester = 'Spring' AND year = 2025;
 
---prereq
+-- prereq
 INSERT INTO prereq (course_id, prereq_id) VALUES
 ('COMP1020', 'COMP1010'),
 ('COMP2010', 'COMP1020'),
 ('COMP2040', 'COMP2010');
 
---advise - for phd students
+-- advise - for phd students
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES
 ('1', 'PH001', '2022-01-15', NULL),
 ('2', 'PH002', '2021-09-01', NULL),
@@ -338,7 +338,7 @@ INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES
 ('4', 'PH004', '2023-05-20', NULL),
 ('5', 'PH005', '2023-09-05', NULL);
 
---take - past courses
+-- take - past courses
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES
 -- John Smith's completed courses
 ('UG001', 'COMP1010', 'Section101', 'Fall', 2023, 'A'),
@@ -374,7 +374,7 @@ INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALU
 ('PH002', 'COMP2010', 'Section102', 'Fall', 2023, 'A-'),
 ('PH002', 'COMP2040', 'Section201', 'Spring', 2023, 'A');
 
---take - current courses (Spring 2025)
+-- take - current courses (Spring 2025)
 INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES
 -- Undergraduate students
 ('UG001', 'COMP2040', 'Section001', 'Spring', 2025),
@@ -395,16 +395,16 @@ INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES
 ('PH004', 'COMP2040', 'Section001', 'Spring', 2025),
 ('PH005', 'COMP2040', 'Section001', 'Spring', 2025);
 
---ta - for sections with more than 10 students
+-- ta - for sections with more than 10 students
 INSERT INTO TA (student_id, course_id, section_id, semester, year) VALUES
 ('PH001', 'COMP2040', 'Section001', 'Spring', 2025);
 
---mastergrader
+-- mastergrader
 INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VALUES
 ('MS001', 'COMP1010', 'Section001', 'Spring', 2025),
 ('MS002', 'COMP1010', 'Section002', 'Spring', 2025),
 ('MS003', 'COMP1020', 'Section001', 'Spring', 2025);
 
---undegradgrader
+-- undegradgrader
 INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
 ('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
