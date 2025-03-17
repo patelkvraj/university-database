@@ -48,7 +48,7 @@ if (!empty($student_id)) {
                                     (SELECT COUNT(*) FROM take t WHERE t.course_id = s.course_id AND t.section_id = s.section_id
                                     AND t.semester = s.semester AND t.year = s.year) as enrolled_students
                                     FROM section s
-                                    JOIN course c ON s.course_id = s.course_id
+                                    JOIN course c ON s.course_id = c.course_id
                                     LEFT JOIN instructor i on s.instructor_id = i.instructor_id
                                     LEFT JOIN classroom cl ON s.classroom_id = cl.classroom_id
                                     LEFT JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
@@ -76,7 +76,7 @@ if (!empty($student_id)) {
                             c.course_name, c.credits, i.instructor_name
                             FROM take t
                             JOIN course c ON t.course_id = c.course_id
-                            JOIN sections s ON t.course_id = s.course_id AND t.section_id = s.section_id
+                            JOIN section s ON t.course_id = s.course_id AND t.section_id = s.section_id
                                     AND t.semester = s.semester AND t.year = s.year
                             LEFT JOIN instructor i ON s.instructor_id = i.instructor_id
                             WHERE t.student_id = '$student_id'
@@ -84,7 +84,7 @@ if (!empty($student_id)) {
         
         $registered_result = mysqli_query($conn, $registered_sql);
 
-        if (mysqli_num_rows($registed_result) > 0) {
+        if (mysqli_num_rows($registered_result) > 0) {
             while ($row = mysqli_fetch_assoc($registered_result)) {
                 $registered_courses[] = $row;
             }
@@ -126,7 +126,7 @@ if (isset($_POST['register'])) {
                     $completed_sql = "SELECT * FROM take t
                                         WHERE t.student_id = '$student_id'
                                         AND t.course_id = '$prereq_id'
-                                        AND (t.grade IS NULL OR t.grade NO IN ('F', 'D-', 'D', 'D+'))";
+                                        AND (t.grade IS NULL OR t.grade NOT IN ('F', 'D-', 'D', 'D+'))";
                     
                     $completed_result = mysqli_query($conn, $completed_sql);
 
@@ -290,7 +290,7 @@ if (isset($_POST['register'])) {
                                     $section_display .= " [{$section['enrolled_students']}/15 students]";
                                 }
                             ?>
-                            <option value="<?php echo $section_value; ?>" <?php echo $setion_full ? 'disabled' : ''; ?>>
+                            <option value="<?php echo $section_value; ?>" <?php echo $section_full ? 'disabled' : ''; ?>>
                                 <?php echo $section_display; ?>
                             </option>
                         <?php endforeach; ?>
@@ -316,11 +316,11 @@ if (isset($_POST['register'])) {
                 <tbody>
                     <?php foreach ($available_sections as $section): ?>
                         <tr>
-                            <td><?php echo $course['course_id']; ?></td>
-                            <td><?php echo $course['course_name']; ?></td>
-                            <td><?php echo $course['section_id']; ?></td>
-                            <td><?php echo $course['credits']; ?></td>
-                            <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
+                            <td><?php echo $section['course_id']; ?></td>
+                            <td><?php echo $section['course_name']; ?></td>
+                            <td><?php echo $section['section_id']; ?></td>
+                            <td><?php echo $section['credits']; ?></td>
+                            <td><?php echo $section['instructor_name'] ?? 'TBA'; ?></td>
                             <td>
                                 <?php
                                     if ($section['day'] && $section['start_time'] && $section['end_time']) {
