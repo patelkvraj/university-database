@@ -17,7 +17,7 @@ if (isset($_GET['student_id'])) {
 
 // check if form was submitted for search
 if (isset($_GET['search_student'])) {
-    $student_id = $_POST['student_id'];
+    $student_id = $_GET['student_id'];
 }
 
 // if student_id available, fetch student info
@@ -245,7 +245,7 @@ if (isset($_POST['register'])) {
         <div><strong><?php echo $error_message; ?></strong></div>
     <?php endif; ?>
 
-    <form method="post" action="">
+    <form method="get" action="">
         <div>
             <label for="student_id">Student ID:</label>
             <input type="text" id="student_id" name="student_id" value="<?php echo $student_id; ?>" required>
