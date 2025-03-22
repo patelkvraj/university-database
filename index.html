@@ -8,18 +8,10 @@
 <body>
     <h1>University Course Management</h1>
 
-    <div>
-        <a href="student.php">Student Account</a>
-        <a href="admin.php">Admin Panel</a>
-        <a href="student_register.php">Course Registration</a>
-        <a href="student_history.php">Course History</a>
-        <a href="course_rating.php">Course Rating</a>
-    </div>
-
     <hr>
 
-    <h2>Quick Login</h2>
-    <form action="student.php" method="post">
+    <h2>Sign In</h2>
+    <form action="login_handler.php" method="post">
         <input type="hidden" name="action" value="login">
         <div>
             <label for="email">Email:</label>
