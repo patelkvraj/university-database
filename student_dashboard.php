@@ -127,10 +127,6 @@ include 'header.php';
     <title>Student Dashboard</title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a>
-    </div>
-
     <h1>Student Dashboard</h1>
 
     <?php if (!$student_info): ?>

@@ -170,10 +170,6 @@ include 'header.php'
     <title>Instructor Dashboard</title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a>
-    </div>
-
     <h1>Instructor Dashboard</h1>
 
     <?php if ($success_message): ?>
