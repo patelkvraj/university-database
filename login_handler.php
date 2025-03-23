@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             } else {
                 $error_message = "Instructor record not found.";
             }
-        } else if ($account_type = 'student') {
+        } else if ($account_type == 'student') {
             // get student ID
             $student_sql = "SELECT student_id FROM student WHERE email = '$email'";
             $student_result = mysqli_query($conn, $student_sql);

@@ -29,7 +29,7 @@ if (!empty($student_id)) {
                 FROM student s
                 LEFT JOIN undergraduate u ON s.student_id = u.student_id
                 LEFT JOIN master m ON s.student_id = m.student_id
-                LEFT JOIN PhD ON s.student_id = p.student_id
+                LEFT JOIN PhD p ON s.student_id = p.student_id
                 WHERE s.student_id = '$student_id'";
 
     $student_result = mysqli_query($conn, $student_sql);
@@ -113,15 +113,15 @@ if (!empty($student_id)) {
     <?php else: ?>
         <div>
             <h2>Welcome, <?php echo $student_info['name']; ?>!</h2>
-            <p><strong>Student ID:</strong> <?php echo $student_info['$student_id'];?></p>
-            <p><strong>Department:</strong> <?php echo $student_info['$dept_name'];?></p>
-            <p><strong>Student Type:</strong> <?php echo $student_info['$student_type'];?></p>
+            <p><strong>Student ID:</strong> <?php echo $student_info['student_id'];?></p>
+            <p><strong>Department:</strong> <?php echo $student_info['dept_name'];?></p>
+            <p><strong>Student Type:</strong> <?php echo $student_info['student_type'];?></p>
 
             <?php if ($student_info['student_type'] == 'undergraduate'): ?>
-                <p><strong>Total Credits:</strong> <?php echo $student_info['$undergrad_credits'];?></p>
-                <p><strong>Class Standing:</strong> <?php echo $student_info['$class_standing'];?></p>
+                <p><strong>Total Credits:</strong> <?php echo $student_info['undergrad_credits'];?></p>
+                <p><strong>Class Standing:</strong> <?php echo $student_info['class_standing'];?></p>
             <?php elseif ($student_info['student_type'] == 'master'): ?>
-                <p><strong>Total Credits:</strong> <?php echo $student_info['$master_credits'];?></p>
+                <p><strong>Total Credits:</strong> <?php echo $student_info['master_credits'];?></p>
             <?php endif; ?>
         </div>
 
