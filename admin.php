@@ -1,12 +1,18 @@
 <?php
+// start session
+session_start();
+
 include 'config.php';
 
 // check if user is logged in and is admin
-session_start();
 $is_admin = false;
 
-// for now, no authentication for admin
-$is_admin = true;
+// check if logged in as admin
+if (isset($_SESSION['logged_in']) && $_SESSION['account_type'] == 'admin') {
+    $is_admin = true;
+} else {
+    $is_admin = false;
+}
 
 // init variables
 $success_message = '';
@@ -20,6 +26,7 @@ $sections = [];
 // fetch instructors
 $instructor_sql =   "SELECT * FROM instructor ORDER BY instructor_name";
 $instructor_result = mysqli_query($conn, $instructor_sql);
+
 while($row = mysqli_fetch_assoc($instructor_result)) {
     $instructors[] = $row;
 }
@@ -27,6 +34,7 @@ while($row = mysqli_fetch_assoc($instructor_result)) {
 // fetch courses
 $course_sql =   "SELECT * FROM course ORDER BY course_id";
 $course_result = mysqli_query($conn, $course_sql);
+
 while($row = mysqli_fetch_assoc($course_result)) {
     $courses[] = $row;
 }
@@ -34,6 +42,7 @@ while($row = mysqli_fetch_assoc($course_result)) {
 // fetch time slots
 $time_slot_sql =   "SELECT * FROM time_slot ORDER BY day, start_time";
 $time_slot_result = mysqli_query($conn, $time_slot_sql);
+
 while($row = mysqli_fetch_assoc($time_slot_result)) {
     $time_slots[] = $row;
 }
@@ -41,6 +50,7 @@ while($row = mysqli_fetch_assoc($time_slot_result)) {
 // fetch classrooms
 $classroom_sql =   "SELECT * FROM classroom ORDER BY building, room_number";
 $classroom_result = mysqli_query($conn, $classroom_sql);
+
 while($row = mysqli_fetch_assoc($classroom_result)) {
     $classrooms[] = $row;
 }
@@ -333,6 +343,9 @@ while ($row = mysqli_fetch_assoc($section_result)) {
     }
  }
 
+ // include header
+ include 'header.php';
+
 // *********************
 // END OF PHP LOGIC (mostly)
 // *********************
@@ -346,14 +359,11 @@ while ($row = mysqli_fetch_assoc($section_result)) {
     <title>Admin Panel</title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a>
-    </div>
-
     <h1>Admin Panel</h1>
 
     <?php if (!$is_admin): ?>
         <div><strong>You do not have permission to access this page.</strong></div>
+        <p><a href="logout.php">Please log out and try again</a></p>
     <?php else: ?>
 
         <?php if ($success_message): ?>

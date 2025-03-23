@@ -1,5 +1,14 @@
 <?php
+// start session
+session_start();
+
 include 'config.php';
+
+// check if user is logged in as student
+if (!isset($_SESSION['logged_in']) || $_SESSION['account_type'] != 'student') {
+    header("Location: index.html");
+    exit();
+}
 
 // init variables
 $success_message = '';
@@ -11,13 +20,18 @@ $student_info = null;
 $selected_section = '';
 
 // check if student_id was passed in URL
-if (isset($_GET['student_id'])) {
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id'];
+} else if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
+    // store in session for future use
+    $_SESSION['student_id'] = $student_id;
 }
 
 // check if form was submitted for search
 if (isset($_GET['search_student'])) {
     $student_id = $_GET['student_id'];
+    $_SESSION['student_id'] = $student_id;
 }
 
 // if student_id available, fetch student info
@@ -214,6 +228,8 @@ if (isset($_POST['register'])) {
         }
     }
 }
+// include header
+include 'header.php';
 
 // *********************
 // END OF PHP LOGIC (mostly)
@@ -230,7 +246,6 @@ if (isset($_POST['register'])) {
 </head>
 <body>
     <div>
-        <a href="index.html">Home</a> |
         <a href="student.php">Student Account</a> |
         <a href="student_history.php">Course History</a>
     </div>
@@ -253,8 +268,12 @@ if (isset($_POST['register'])) {
         <button type="submit" name="search_student">Search</button>
     </form>
 
-    <?php if ($student_info): ?>
-        <hr>
+    <?php if (!$student_info): ?>
+        <div>
+            <strong>Unable to find your student information.</strong>
+            <p><a href="logout.php">Please log out and try again</a></p>
+        </div>
+    <?php else: ?>
         <div>
             <h3>Student Information</h3>
             <p><strong>Name:</strong> <?php echo $student_info['name']; ?></p>
@@ -346,9 +365,51 @@ if (isset($_POST['register'])) {
             </table>
         <?php endif; ?>
 
-        <h2>Currently Registered Courses</h2>
-        <?php if (empty($registered_courses)): ?>
-            <p>No registered courses found.</p>
+        <h2>Current Semester Courses (Spring 2025)</h2>
+        <?php
+        $current_courses = array_filter($courses, function($course) {
+            return $course['semester'] == 'Spring' && $course['year'] == 2025;
+        });
+
+        if (empty($current_courses)): 
+        ?>
+            <p>You are not enrolled in any courses for the current semester..</p>
+        <?php else: ?>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Section</th>
+                        <th>Credits</th>
+                        <th>Instructor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($current_courses as $course): ?>
+                        <tr>
+                            <td><?php echo $course['course_id']; ?></td>
+                            <td><?php echo $course['course_name']; ?></td>
+                            <td><?php echo $course['section_id']; ?></td>
+                            <td><?php echo $course['credits']; ?></td>
+                            <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
+                            <td>In Progress</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <h2>Past Courses</h2>
+        <?php
+        $past_courses = array_filter($courses, function($course) {
+            return !($course['semester'] == 'Spring' && $course['year'] == 2025);
+        });
+
+        if (empty($past_courses)):
+        ?>
+            <p>No past course history found.</p>
         <?php else: ?>
             <table border="1">
                 <thead>
@@ -364,7 +425,7 @@ if (isset($_POST['register'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($registered_courses as $course): ?>
+                    <?php foreach ($past_courses as $course): ?>
                         <tr>
                             <td><?php echo $course['course_id']; ?></td>
                             <td><?php echo $course['course_name']; ?></td>
@@ -373,7 +434,15 @@ if (isset($_POST['register'])) {
                             <td><?php echo $course['year']; ?></td>
                             <td><?php echo $course['credits']; ?></td>
                             <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
-                            <td><?php echo $course['grade'] ?? 'In Progress'; ?></td>
+                            <td>
+                                <?php
+                                    if ($course['grade']) {
+                                        echo '<strong>' . $course['grade'] . '</strong>';
+                                    } else {
+                                        echo 'In Progress';
+                                    }
+                                ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
