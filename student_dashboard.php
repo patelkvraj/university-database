@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'config.php';
 
 // init variables
@@ -78,7 +82,8 @@ if (!empty($student_id)) {
                                 AND t.semester = s.semester
                                 AND t.year = s.year
                             )
-                            AND enrolled_students < 15
+                            AND (SELECT COUNT(*) FROM take t WHERE t.course_id = s.course_id AND t.section_id = s.section_id
+                                AND t.semester = s.semester AND t.year = s.year) < 15
                             LIMIT 5";
         $available_result = mysqli_query($conn, $available_sql);
 
