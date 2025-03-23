@@ -16,8 +16,39 @@ $class_standing = '';
 // check if student_id passed in URL
 if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
-    $_POST['action'] = 'search';
-    $_POST['student_id'] = $student_id;
+    
+    // automatically search for student data
+    $search_sql = "SELECT s.*,
+                    u.total_credits as undergrad_credits, u.class_standing,
+                    m.total_credits as master_credits,
+                    CASE
+                        WHEN u.student_id IS NOT NULL THEN 'undergraduate'
+                        WHEN m.student_id iS NOT NULL THEN 'master'
+                        WHEN p.student_id IS NOT NULL THEN 'phd'
+                        ELSE NULL
+                    END as student_type
+                FROM student s
+                LEFT JOIN undergraduate u ON s.student_id = u.student_id
+                LEFT JOIN master m ON s.student_id = m.student_id
+                LEFT JOIN PhD p ON s.student_id = p.student_id
+                WHERE s.student_id = '$student_id'";
+
+    $result = mysqli_query($conn, $search_sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['name'];
+        $email = $row['email'];
+        $dept_name = $row['dept_name'];
+        $student_type = $row['student_type'];
+
+        if ($student_type == 'undergraduate') {
+            $total_credits = $row['undergrad_credits'];
+            $class_standing = $row['class_standing'];
+        } else if ($student_type == 'master') {
+            $total_credits = $row['master_credits'];
+        }
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -268,6 +299,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $dept_query = "SELECT dept_name FROM department";
 $dept_result = mysqli_query($conn, $dept_query);
 
+// include header
+include 'header.php';
+
 // *********************
 // END OF PHP LOGIC (mostly)
 // *********************
@@ -281,15 +315,6 @@ $dept_result = mysqli_query($conn, $dept_query);
     <title><?php echo $student_id ? 'Update Student Account' : 'Create Student Account'; ?></title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a> |
-        <?php if ($student_id): ?>
-            | <a href="student_dashboard.php?student_id=<?php echo $student_id; ?>">Dashboard</a>
-            | <a href="student_register.php?student_id=<?php echo $student_id; ?>">Course Registration</a>
-            | <a href="student_history.php?student_id=<?php echo $student_id; ?>">Course History</a>
-        <?php endif; ?>
-    </div>
-
     <h1><?php echo $student_id ? 'Update Student Account' : 'Create Student Account'; ?></h1>
 
     <?php if ($success_message): ?>

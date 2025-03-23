@@ -60,7 +60,27 @@ if (!empty($student_id)) {
         $available_sections_sql = "SELECT s.course_id, s.section_id, s.semester, s.year, c.course_name, c.credits,
                                     i.instructor_name, cl.building, cl.room_number, ts.day, ts.start_time, ts.end_time,
                                     (SELECT COUNT(*) FROM take t WHERE t.course_id = s.course_id AND t.section_id = s.section_id
-                                    AND t.semester = s.semester AND t.year = s.year) as enrolled_students
+                                    AND t.semester = s.semester AND t.year = s.year) as enrolled_students,
+                                    CASE
+                                        WHEN s.time_slot_id IS NOT NULL THEN 'No'
+                                        WHEN EXISTS (
+                                            SELECT 1
+                                            FROM take t2
+                                            JOIN section s2 ON t2.course_id = s2.course_id
+                                                AND t2.section_id = s2.section_id
+                                                AND t2.semester = s2.semester
+                                                AND t2.year = s2.year
+                                            JOIN time_slot ts2 ON s2.time_slot_id = ts2.time_slot_id
+                                            WHERE t2.student_id = '$student_id'
+                                            AND t2.semester = 'Spring' AND ts.year = 2025
+                                            AND s2.time_slot_id IS NOT NULL
+                                            AND ts.day = ts2.day
+                                            AND (( ts.start_time <= ts2.start_time AND ts.end_time > ts2.start_time)
+                                                OR (ts.start_time < ts2.end_time AND ts.end_time >= ts2.end_time)
+                                                OR (ts.start_time >= ts2.start_time AND ts.end_time <= ts2.end_time))
+                                        ) THEN 'Yes'
+                                        ELSE 'No'
+                                    END as has_time_conflict
                                     FROM section s
                                     JOIN course c ON s.course_id = c.course_id
                                     LEFT JOIN instructor i on s.instructor_id = i.instructor_id
@@ -157,6 +177,49 @@ if (isset($_POST['register'])) {
                 throw new Exception("Missing prerequisites: " . implode(", ", $missing_prereqs));
             }
 
+            // check for time slot conflicts with already registered courses
+            $time_slot_sql = "SELECT ts.time_slot_id, ts.day, ts.start_time, ts.end_time
+                            FROM section s
+                            JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
+                            WHERE s.course_id = '$course_id'
+                            AND s.section_id = '$section_id'
+                            AND s.semester = '$semester'
+                            AND s.year = $year";
+            
+            $time_slot_result = mysqli_query($conn, $time_slot_sql);
+
+            if (mysqli_num_rows($time_slot_result) > 0) {
+                $time_slot = mysqli_fetch_assoc($time_slot_result);
+
+                // now check if student has any conflicts with existing courses
+                if (!empty($time_slot['time_slot_id'])) {
+                    $conflict_sql = "SELECT t.course_id, t.section_id, c.course_name, ts.day,
+                                    DATE_FORMAT(ts.start_time, '%h:%i %p') as start_time,
+                                    DATE_FORMAT(ts.end_time, '%h:%i %p') as end_time
+                                    FROM take t
+                                    JOIN section s ON t.course_id = s.course_id
+                                        AND t.section_id = s.section_id
+                                        AND t.semester = s.semester
+                                        AND t.year = s.year
+                                    JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
+                                    JOIN course c ON t.course_id = c.course_id
+                                    WHERE t.student_id = '$student_id'
+                                    AND t.semester = '$semester'
+                                    AND t.year = $year
+                                    AND ts.day = '{$time_slot['day']}'
+                                    AND (( ts.start_time <= '{$time_slot['start_time']}' AND ts.end_time > '{$time_slot['start_time']}')
+                                        OR ( ts.start_time < '{$time_slot['end_time']}' AND ts.end_time >= '{$time_slot['end_time']}')
+                                        OR ( ts.start_time >= '{$time_slot['start_time']}' AND ts.end_time <= '{$time_slot['end_time']}'))";
+                    
+                    $conflict_result = mysqli_query($conn, $conflict_sql);
+
+                    if (mysqli_num_rows($conflict_result) > 0) {
+                        $conflict_course = mysqli_fetch_assoc($conflict_result);
+                        throw new Exception("Time conflict with {$conflict_course['course_id']} ({$conflict_course['course_name']}] on {$conflict_course['day']} at {$conflict_course['start_time']} - {$conflict_course['end_time']}");
+                    }
+                }
+            }
+
             // check section capacity
             $enrolled_sql = "SELECT COUNT(*) as count FROM take
                             WHERE course_id = '$course_id' AND section_id = '$section_id'
@@ -245,11 +308,6 @@ include 'header.php';
     <title>Student Course Registration</title>
 </head>
 <body>
-    <div>
-        <a href="student.php">Student Account</a> |
-        <a href="student_history.php">Course History</a>
-    </div>
-
     <h1>Student Course Registration</h1>
 
     <?php if ($success_message): ?>
@@ -301,6 +359,7 @@ include 'header.php';
                         <?php foreach ($available_sections as $section): ?>
                             <?php
                                 $section_full = ($section['enrolled_students'] >= 15);
+                                $has_time_conflict = ($section['has_time_conflict'] == 'Yes');
                                 $section_value = "{$section['course_id']}|{$section['section_id']}|{$section['semester']}|{$section['year']}";
                                 $section_display = "{$section['course_id']} - {$section['course_name']} ({$section['section_id']})";
                                 if ($section_full) {
@@ -308,8 +367,12 @@ include 'header.php';
                                 } else {
                                     $section_display .= " [{$section['enrolled_students']}/15 students]";
                                 }
+                                if ($has_time_conflict) {
+                                    $section_display .= " [TIME CONFLICT]";
+                                }
+                                $disabled = ($section_full || $has_time_conflict) ? 'disabled' : '';
                             ?>
-                            <option value="<?php echo $section_value; ?>" <?php echo $section_full ? 'disabled' : ''; ?>>
+                            <option value="<?php echo $section_value; ?>" <?php echo $disabled; ?>>
                                 <?php echo $section_display; ?>
                             </option>
                         <?php endforeach; ?>
@@ -367,7 +430,7 @@ include 'header.php';
 
         <h2>Current Semester Courses (Spring 2025)</h2>
         <?php
-        $current_courses = array_filter($courses, function($course) {
+        $current_courses = array_filter($registered_courses, function($course) {
             return $course['semester'] == 'Spring' && $course['year'] == 2025;
         });
 
@@ -403,7 +466,7 @@ include 'header.php';
 
         <h2>Past Courses</h2>
         <?php
-        $past_courses = array_filter($courses, function($course) {
+        $past_courses = array_filter($registered_courses, function($course) {
             return !($course['semester'] == 'Spring' && $course['year'] == 2025);
         });
 

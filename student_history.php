@@ -109,6 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// include header
+include 'header.php';
+
 // *********************
 // END OF PHP LOGIC (mostly)
 // *********************
@@ -123,12 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Student Course History</title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a> |
-        <a href="student.php">Student Account</a> |
-        <a href="student_register.php">Course Registration</a>
-    </div>
-
     <h1>Student Course History</h1>
 
     <?php if ($success_message): ?>
