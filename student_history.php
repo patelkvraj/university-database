@@ -177,9 +177,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
         </div>
 
-        <h2>Course History</h2>
-        <?php if (empty($courses)): ?>
-            <p>No course history found.</p>
+        <h2>Current Semester Courses (Spring 2025)</h2>
+        <?php
+        $current_courses = array_filter($courses, function($course) {
+            return $course['semester'] == 'Spring' && $course['year'] == 2025;
+        });
+
+        if (empty($current_courses)): 
+        ?>
+            <p>You are not enrolled in any courses for the current semester..</p>
+        <?php else: ?>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Section</th>
+                        <th>Credits</th>
+                        <th>Instructor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($current_courses as $course): ?>
+                        <tr>
+                            <td><?php echo $course['course_id']; ?></td>
+                            <td><?php echo $course['course_name']; ?></td>
+                            <td><?php echo $course['section_id']; ?></td>
+                            <td><?php echo $course['credits']; ?></td>
+                            <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
+                            <td>In Progress</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <h2>Past Courses</h2>
+        <?php
+        $past_courses = array_filter($courses, function($course) {
+            return !($course['semester'] == 'Spring' && $course['year'] == 2025);
+        });
+
+        if (empty($past_courses)):
+        ?>
+            <p>No past course history found.</p>
         <?php else: ?>
             <table border="1">
                 <thead>
@@ -195,7 +237,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($courses as $course): ?>
+                    <?php foreach ($past_courses as $course): ?>
                         <tr>
                             <td><?php echo $course['course_id']; ?></td>
                             <td><?php echo $course['course_name']; ?></td>
