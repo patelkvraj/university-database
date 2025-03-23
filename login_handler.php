@@ -1,4 +1,8 @@
 <?php
+
+// start session
+session_start();
+
 include 'config.php';
 
 // init variables
@@ -18,8 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $account = mysqli_fetch_assoc($login_result);
         $account_type = $account['type'];
 
+        // store login info in session
+        $_SESSION['logged_in'] = true;
+        $_SESSION['email'] = $email;
+        $_SESSION['account_type'] = $account_type;
+
         // redirect based on account type
         if ($account_type == 'admin') {
+            $_SESSION['admin'] = true;
             header("Location: admin.php");
             exit();
         } else if ($account_type == 'instructor') {
@@ -30,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             if (mysqli_num_rows($instructor_result) > 0) {
                 $instructor = mysqli_fetch_assoc($instructor_result);
                 $instructor_id = $instructor['instructor_id'];
+                $_SESSION['instructor_id'] = $instructor_id;
                 header("Location: instructor.php?instructor_id=" . $instructor_id);
                 exit();
             } else {
@@ -43,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             if (mysqli_num_rows($student_result) > 0) {
                 $student = mysqli_fetch_assoc($student_result);
                 $student_id = $student['student_id'];
+                $_SESSION['student_id'] = $student_id;
                 header("Location: student_dashboard.php?student_id=" . $student_id);
                 exit();
             } else {

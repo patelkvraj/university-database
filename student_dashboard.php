@@ -3,19 +3,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// start session
+session_start();
+
+// check if user is logged in as student
+if (!isset($_SESSION['logged_in']) || $_SESSION['account_type'] != 'student') {
+    header("Location: index.html");
+    exit();
+}
+
 include 'config.php';
 
 // init variables
+$page_title = "Student Dashboard";
 $student_id = '';
 $student_info = null;
 $current_courses = [];
 $upcoming_courses = [];
 
 // check if student_id was passed in URL or POST
-if (isset($_GET['student_id'])) {
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id'];
+} else if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
-} else if (isset($_POST['student_id'])) {
-    $student_id = $_POST['student_id'];
+    // store in session for future use
+    $_SESSION['student_id'] = $student_id;
 }
 
 // if student_id is provided, fetch student info
@@ -37,6 +49,9 @@ if (!empty($student_id)) {
                 WHERE s.student_id = '$student_id'";
 
     $student_result = mysqli_query($conn, $student_sql);
+    if (!$student_result) {
+        die("Database error: " . mysqli_error($conn));
+    }
 
     if (mysqli_num_rows($student_result) > 0) {
         $student_info = mysqli_fetch_assoc($student_result);
@@ -56,6 +71,9 @@ if (!empty($student_id)) {
                         ORDER BY c.course_id";
         
         $current_result = mysqli_query($conn, $current_sql);
+        if (!$current_result) {
+            die("Database error: " . mysqli_error($conn));
+        }
 
         if (mysqli_num_rows($current_result) > 0) {
             while ($row = mysqli_fetch_assoc($current_result)) {
@@ -86,6 +104,9 @@ if (!empty($student_id)) {
                                 AND t.semester = s.semester AND t.year = s.year) < 15
                             LIMIT 5";
         $available_result = mysqli_query($conn, $available_sql);
+        if (!$available_result) {
+            die("Database error: " . mysqli_error($conn));
+        }
 
         if (mysqli_num_rows($available_result) > 0) {
             while ($row = mysqli_fetch_assoc($available_result)) {
@@ -94,6 +115,8 @@ if (!empty($student_id)) {
         }
     }
 }
+// include header
+include 'header.php';
 ?>
 
 <!DOCTYPE html>
@@ -112,8 +135,8 @@ if (!empty($student_id)) {
 
     <?php if (!$student_info): ?>
         <div>
-            <strong>Please log in to access your dashboard.</strong>
-            <p><a href="index.html">Return to homepage</a></p>
+            <strong>Unable to find your student information.</strong>
+            <p><a href="logout.php">Please log out and try again</a></p>
         </div>
     <?php else: ?>
         <div>

@@ -1,7 +1,23 @@
 <?php
+// start session
+session_start();
+
+// check if user is logged in as instructor
+if (!isset($_SESSION['logged_in']) || $_SESSION['account_type'] != 'instructor') {
+    // if not already logged in through session, allow login form
+    if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST['action']) || $_POST['action'] != 'login'){
+        // not logged in and not trying to log in - redirect home
+        if (!isset($_GET['instructor_id'])) {
+            header("Location: index.html");
+            exit();
+        }
+    }
+}
+
 include 'config.php';
 
 // init variables
+$page_title = "Instructor Dashboard";
 $success_message = '';
 $error_message = '';
 $instructor_id = '';
@@ -11,9 +27,13 @@ $past_sections = [];
 $section_students = [];
 $selected_section = '';
 
-// check if instructor_id was passed in URL
-if (isset($_GET['instructor_id'])) {
+// get instructor_id from session or URL
+if (isset($_SESSION['instructor_id'])) {
+    $instructor_id = $_SESSION['instructor_id'];
+} else if (isset($_GET['instructor_id'])) {
     $instructor_id = $_GET['instructor_id'];
+    // store in session for future use
+    $_SESSION['instructor_id'] = $instructor_id;
 }
 
 // check if form was submitted for login
@@ -26,6 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $login_result = mysqli_query($conn, $login_sql);
 
     if (mysqli_num_rows($login_result) > 0) {
+        // get account and set session
+        $account = mysqli_fetch_assoc($login_result);
+        $_SESSION['logged_in'] = true;
+        $_SESSION['email'] = $email;
+        $_SESSION['account_type'] = 'instructor';
+
         // get instructor ID
         $instructor_sql = "SELECT instructor_id FROM instructor WHERE email = '$email'";
         $instructor_result = mysqli_query($conn, $instructor_sql);
@@ -33,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         if (mysqli_num_rows($instructor_result) > 0) {
             $instructor = mysqli_fetch_assoc($instructor_result);
             $instructor_id = $instructor['instructor_id'];
+            $_SESSION['instructor_id'] = $instructor_id;
         } else {
             $error_message = "Instructor record not found.";
         }
@@ -132,6 +159,7 @@ if (!empty($instructor_id)) {
         $error_message = "Instructor not found.";
     }
 }
+include 'header.php'
 ?>
 
 <!DOCTYPE html>
