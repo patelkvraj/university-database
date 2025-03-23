@@ -13,52 +13,18 @@ $student_type = '';
 $total_credits = '';
 $class_standing = '';
 
+// check if student_id passed in URL
+if (isset($_GET['student_id'])) {
+    $student_id = $_GET['student_id'];
+    $_POST['action'] = 'search';
+    $_POST['student_id'] = $student_id;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // get form data
     $action = $_POST['action'];
 
-    if ($action == 'login') {
-        // handle login attempt
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-
-        // check creds in account table
-        $login_sql = "SELECT * FROM account WHERE email = '$email' AND password = '$password'";
-        $login_result = mysqli_query($conn, $login_sql);
-
-        if (mysqli_num_rows($login_result) > 0) {
-            // get account type
-            $account = mysqli_fetch_assoc($login_result);
-            $account_type = $account['type'];
-
-            // redirect based on account type
-            if ($account_type == 'admin') {
-                header("Location: admin.php");
-                exit();
-            } else if ($account_type == 'instructor') {
-                header("Location: admin.php");
-                exit();
-            } else if ($account_type == 'student') {
-                // get student ID from student table
-                $student_sql = "SELECT student_id FROM student WHERE email = '$email'";
-                $student_result = mysqli_query($conn, $student_sql);
-
-                if (mysqli_num_rows($student_result) > 0) {
-                    $student = mysqli_fetch_assoc($student_result);
-                    $student_id = $student['student_id'];
-
-                    // redirect to student regist. page
-                    header("Location: student_register.php?student_id=" . $student_id);
-                    exit();
-                } else {
-                    $error_message = "Student not found.";
-                }
-            }
-        } else {
-            $error_message = "Invalid email or password.";
-        }
-    }
-    else if ($action == 'create') {
+    if ($action == 'create') {
         // create new student account
         $student_id = $_POST['student_id'];
         $name = $_POST['name'];
@@ -312,14 +278,19 @@ $dept_result = mysqli_query($conn, $dept_query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Account Management</title>
+    <title><?php echo $student_id ? 'Update Student Account' : 'Create Student Account'; ?></title>
 </head>
 <body>
     <div>
         <a href="index.html">Home</a> |
-        <a href="student_register.php">Course Registration</a> |
-        <a href="student_history.php">Course History</a>
+        <?php if ($student_id): ?>
+            | <a href="student_dashboard.php?student_id=<?php echo $student_id; ?>">Dashboard</a>
+            | <a href="student_register.php?student_id=<?php echo $student_id; ?>">Course Registration</a>
+            | <a href="student_history.php?student_id=<?php echo $student_id; ?>">Course History</a>
+        <?php endif; ?>
     </div>
+
+    <h1><?php echo $student_id ? 'Update Student Account' : 'Create Student Account'; ?></h1>
 
     <?php if ($success_message): ?>
         <div><strong><?php echo $success_message; ?></strong></div>
@@ -329,17 +300,21 @@ $dept_result = mysqli_query($conn, $dept_query);
         <div><strong><?php echo $error_message; ?></strong></div>
     <?php endif; ?>
 
-    <h2>Search for Existing Student</h2>
-    <form method="post" action="">
-        <input type="hidden" name="action" value="search">
-        <div>
-            <label for="student_id_search">Student ID:</label>
-            <input type="text" id="student_id_search" name="student_id" required>
-        </div>
-        <button type="submit">Search</button>
-    </form>
+    <?php if ($student_id): ?>
+        <!-- If editing existing account, no need to show search form -->
+    <?php else: ?>
+        <h2>Search for Existing Student</h2>
+        <form method="post" action="">
+            <input type="hidden" name="action" value="search">
+            <div>
+                <label for="student_id_search">Student ID:</label>
+                <input type="text" id="student_id_search" name="student_id" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
 
-    <hr>
+        <hr>
+    <?php endif; ?>
 
     <h2><?php echo $student_id ? 'Update Student Account' : 'Create New Student Account'; ?></h2>
     <form method="post" action="">
