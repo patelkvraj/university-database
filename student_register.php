@@ -62,7 +62,7 @@ if (!empty($student_id)) {
                                     (SELECT COUNT(*) FROM take t WHERE t.course_id = s.course_id AND t.section_id = s.section_id
                                     AND t.semester = s.semester AND t.year = s.year) as enrolled_students,
                                     CASE
-                                        WHEN s.time_slot_id IS NOT NULL THEN 'No'
+                                        WHEN s.time_slot_id IS NULL THEN 'No'
                                         WHEN EXISTS (
                                             SELECT 1
                                             FROM take t2
@@ -72,7 +72,7 @@ if (!empty($student_id)) {
                                                 AND t2.year = s2.year
                                             JOIN time_slot ts2 ON s2.time_slot_id = ts2.time_slot_id
                                             WHERE t2.student_id = '$student_id'
-                                            AND t2.semester = 'Spring' AND ts.year = 2025
+                                            AND t2.semester = 'Spring' AND t2.year = 2025
                                             AND s2.time_slot_id IS NOT NULL
                                             AND ts.day = ts2.day
                                             AND (( ts.start_time <= ts2.start_time AND ts.end_time > ts2.start_time)
@@ -215,7 +215,7 @@ if (isset($_POST['register'])) {
 
                     if (mysqli_num_rows($conflict_result) > 0) {
                         $conflict_course = mysqli_fetch_assoc($conflict_result);
-                        throw new Exception("Time conflict with {$conflict_course['course_id']} ({$conflict_course['course_name']}] on {$conflict_course['day']} at {$conflict_course['start_time']} - {$conflict_course['end_time']}");
+                        throw new Exception("Time conflict with {$conflict_course['course_id']} ({$conflict_course['course_name']}) on {$conflict_course['day']} at {$conflict_course['start_time']} - {$conflict_course['end_time']}");
                     }
                 }
             }
