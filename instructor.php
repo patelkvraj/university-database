@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $password = $_POST['password'];
 
     // check creds in account table
-    $login_sql = "SELECT * FROM acount WHERE email = '$email' AND password = '$password' AND type = 'instructor'";
+    $login_sql = "SELECT * FROM account WHERE email = '$email' AND password = '$password' AND type = 'instructor'";
     $login_result = mysqli_query($conn, $login_sql);
 
     if (mysqli_num_rows($login_result) > 0) {
@@ -66,7 +66,7 @@ if (!empty($instructor_id)) {
                             LEFT JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
                             WHERE s.instructor_id = '$instructor_id'
                             AND s.semester = 'Spring' AND s.year = 2025
-                            ORDER BY s.course_ID, s.section_id";
+                            ORDER BY s.course_id, s.section_id";
         
         $current_result = mysqli_query($conn, $current_sections_sql);
 
@@ -157,7 +157,7 @@ if (!empty($instructor_id)) {
     <?php endif; ?>
 
     <?php if (!$instructor_info): ?>
-        <!-- Instructor Login Form -->$_COOKIE
+        <!-- Instructor Login Form -->
         <h2>Instructor Login</h2>
         <form method="post" action="">
             <input type="hidden" name="action" value="login">

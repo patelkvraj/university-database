@@ -346,7 +346,7 @@ $dept_result = mysqli_query($conn, $dept_query);
                     while($dept_row = mysqli_fetch_assoc($dept_result)) {
                         $departments[] = $dept_row['dept_name'];
                         $selected = ($dept_row['dept_name'] == $dept_name) ? 'selected' : '';
-                        echo "<option value='" . $dept_row['dept_name'] . "' $selected>" . $dept_row['dept_name'] . "</option";
+                        echo "<option value='" . $dept_row['dept_name'] . "' $selected>" . $dept_row['dept_name'] . "</option>";
                     }
                 }
                 ?>
