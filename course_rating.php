@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($result) > 0) {
             $course_info = mysqli_fetch_assoc($result);
         } else {
-            $error_message = "No courses to rate.";
+            $error_message = "*No courses to rate.";
         }
     } else {
         $error_message = "Please enter a student ID.";
@@ -50,6 +50,41 @@ include 'header.php';
     </form>
 
     <?php if ($course_info): ?>
+        <h2>Courses you have completed:</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                    <th>Instructor</th>
+                    <th>Grade</th>
+                    <th>Overall Rating</th>
+                </tr>
+                <tr>
+                    <td>COMP2010</td>
+                    <td>Computing 3</td>
+                    <td>Fall</td>
+                    <td>2023</td>
+                    <td>Johannes Weis</td>
+                    <td>Grade</td>
+                    <td>4.5/5.0</td>
+                </tr>
+                <tr>
+                    <td>COMP2040</td>
+                    <td>Computing 4</td>
+                    <td>Spring</td>
+                    <td>2022</td>
+                    <td>Yelena Rykalova</td>
+                    <td>Grade</td>
+                    <td>4.3/5.0</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
         <h2>Select a Course to Rate:</h2>
 
         <form method="post" action="">
