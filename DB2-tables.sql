@@ -501,10 +501,64 @@ INSERT INTO time_slot (time_slot_id, day, start_time, end_time) VALUES
 ('TS15', 'MoWeFr', '16:00:00', '16:50:00');
 
 -- course
-insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
-insert into course (course_id, course_name, credits) values ('COMP1020', 'Computing II', 3);
-insert into course (course_id, course_name, credits) values ('COMP2010', 'Computing III', 3);
-insert into course (course_id, course_name, credits) values ('COMP2040', 'Computing IV', 3);
+-- CS
+insert into course (course_id, course_name, credits) values 
+('COMP1010', 'Computing I', 3),
+('COMP1020', 'Computing II', 3),
+('COMP2010', 'Computing III', 3),
+('COMP2040', 'Computing IV', 3),
+('COMP2010', 'Data Structures', 3),
+('COMP3010', 'Operating Systems', 3),
+('COMP3020', 'Algorithms', 3),
+('COMP3050', 'Software Engineering', 3),
+('COMP3080', 'Database Systems', 3),
+('COMP4040', 'Artificial Intelligence', 4),
+-- Manning School of Business
+('BUSN1001', 'Introduction to Business', 3),
+('BUSN2002', 'Financial Accounting', 3),
+('BUSN3003', 'Principles of Marketing', 3),
+('BUSN3100', 'Business Ethics', 3),
+('BUSN3200', 'Organizational Behavior', 3),
+('BUSN3300', 'Business Analytics', 4),
+('BUSN3400', 'Operations Management', 3),
+('BUSN3500', 'Corporate Finance', 4),
+('BUSN3600', 'Strategic Management', 3),
+('BUSN3700', 'International Business', 3),
+-- Francis College of Engineering
+('ENGR1001', 'Introduction to Engineering', 3),
+('ENGR2002', 'Statics', 3),
+('ENGR2003', 'Dynamics', 3),
+('ENGR3004', 'Fluid Mechanics', 3),
+('ENGR3005', 'Thermodynamics', 4),
+('ENGR3100', 'Electrical Circuits', 3),
+('ENGR3200', 'Engineering Materials', 3),
+('ENGR3300', 'Control Systems', 3),
+('ENGR3400', 'Engineering Design', 4),
+('ENGR3500', 'Capstone Engineering Project', 3),
+-- College of Fine Arts, Humanities and Social Sciences
+('FAHS1001', 'Intro to Psychology', 3),
+('FAHS1002', 'Intro to Sociology', 3),
+('FAHS2001', 'World History I', 3),
+('FAHS2002', 'American Literature', 3),
+('FAHS2100', 'Creative Writing', 3),
+('FAHS2200', 'Philosophy and Ethics', 3),
+('FAHS2300', 'Modern Art History', 3),
+('FAHS2400', 'Comparative Politics', 3),
+('FAHS2500', 'Public Speaking', 3),
+('FAHS2600', 'Media & Society', 3),
+-- Zuckerberg College of Health Sciences
+('HLTH1001', 'Foundations of Health Science', 3),
+('HLTH1100', 'Medical Terminology', 2),
+('HLTH2001', 'Nutrition and Wellness', 3),
+('HLTH2100', 'Human Anatomy & Physiology I', 4),
+('HLTH2200', 'Health Policy', 3),
+('HLTH2300', 'Pathophysiology', 3),
+('HLTH2400', 'Clinical Microbiology', 3),
+('HLTH2500', 'Community Health', 3),
+('HLTH2600', 'Health Assessment', 3),
+('HLTH2700', 'Epidemiology', 3);
+
+
 
 -- section
 -- First, create all the sections needed
