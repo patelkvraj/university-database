@@ -483,11 +483,22 @@ INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
 ('CL015', 'Olney Hall', '112', 25);
 
 -- time slot
-insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS2', 'MoWeFr', '12:00:00', '12:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS3', 'MoWeFr', '13:00:00', '13:50:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS4', 'TuTh', '11:00:00', '12:15:00');
-insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS5', 'TuTh', '12:30:00', '13:45:00');
+INSERT INTO time_slot (time_slot_id, day, start_time, end_time) VALUES
+('TS1', 'MoWeFr', '11:00:00', '11:50:00'),
+('TS2', 'MoWeFr', '12:00:00', '12:50:00'),
+('TS3', 'MoWeFr', '13:00:00', '13:50:00'),
+('TS4', 'TuTh', '11:00:00', '12:15:00'),
+('TS5', 'TuTh', '12:30:00', '13:45:00'),
+('TS6', 'MoWeFr', '09:00:00', '09:50:00'),
+('TS7', 'MoWeFr', '10:00:00', '10:50:00'),
+('TS8', 'MoWeFr', '14:00:00', '14:50:00'),
+('TS9', 'MoWeFr', '15:00:00', '15:50:00'),
+('TS10', 'TuTh', '08:00:00', '09:15:00'),
+('TS11', 'TuTh', '09:30:00', '10:45:00'),
+('TS12', 'TuTh', '14:00:00', '15:15:00'),
+('TS13', 'TuTh', '15:30:00', '16:45:00'),
+('TS14', 'MoWeFr', '08:00:00', '08:50:00'),
+('TS15', 'MoWeFr', '16:00:00', '16:50:00');
 
 -- course
 insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
