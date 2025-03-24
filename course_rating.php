@@ -1,4 +1,7 @@
 <?php
+// start session
+session_start();
+
 include 'config.php';
 
 // init variables
@@ -6,8 +9,6 @@ $success_message = '';
 $error_message = '';
 $student_id = '';
 $course_info = null;
-
-include 'config.php';
 
 if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
@@ -33,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include 'header.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +42,7 @@ include 'header.php';
     <title>Document</title>
 </head>
 <body>
-    <h1>Student Course History</h1>
+    <h1>Course Rating</h1>
 
     <?php if ($success_message): ?>
         <div><strong><?php echo $success_message; ?></strong></div>
@@ -61,16 +61,27 @@ include 'header.php';
     </form>
 
     <?php if ($course_info): ?>
-        <h1>Select a Course to Rate:</h1>
+        <h2>Select a Course to Rate:</h2>
 
-        <form method="post" action="course_rating.php">
+        <form method="post" action="">
 
             <label for="course">Choose a Course:</label>
             <select name="course" id="course">
-                <option value="web_dev">Computing I</option>
-                <option value="data_sci">Computing II</option>
-                <option value="python_intro">Computing III</option>
-                <option value="java_adv">Computing IV</option>
+            <?php
+                $sql = "SELECT course_id, student_id
+                        FROM take
+                        WHERE student_id = '$student_id'";
+
+                $result = mysqli_query($conn, $sql);
+                $num = mysqli_num_rows($result);
+
+                if ($num > 1) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $course_id = $row['course_id'];
+                        echo "<option value='$course_id'>$course_id</option>";
+                    }
+                }
+            ?>
             </select>
 
             <label for="rating">Your Rating:</label>
