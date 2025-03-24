@@ -470,7 +470,17 @@ INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
 ('CL002', 'Dandeneau Hall', '302', 25),
 ('CL003', 'Dandeneau Hall', '401', 30),
 ('CL004', 'Olsen Hall', '201', 40),
-('CL005', 'Olsen Hall', '202', 35);
+('CL005', 'Olsen Hall', '202', 35),
+('CL006', 'Olney Hall', '105', 30),
+('CL007', 'Olney Hall', '210', 28),
+('CL008', 'Ball Hall', '310', 22),
+('CL009', 'Ball Hall', '415', 26),
+('CL010', 'Weed Hall', '102', 18),
+('CL011', 'Weed Hall', '203', 24),
+('CL012', 'Shah Hall', '305', 32),
+('CL013', 'Shah Hall', '406', 30),
+('CL014', 'Olsen Hall', '303', 20),
+('CL015', 'Olney Hall', '112', 25);
 
 -- time slot
 insert into time_slot (time_slot_id, day, start_time, end_time) values ('TS1', 'MoWeFr', '11:00:00', '11:50:00');
