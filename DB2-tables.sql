@@ -248,11 +248,41 @@ insert into department (dept_name, location) values ('Zuckerberg College of Heal
 
 
 -- instructor
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu');
-insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
+-- CS school
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values 
+('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu'),
+('2', 'Sirong Lin', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences','slin@cs.uml.edu'),
+('3', 'Yelena Rykalova', 'Associate Teaching Professor', 'Miner School of Computer & Information Sciences', 'Yelena_Rykalova@uml.edu'),
+('4', 'Johannes Weis', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Johannes_Weis@uml.edu'),
+('5', 'Tom Wilkes', 'Assistant Teaching Professor', 'Miner School of Computer & Information Sciences','Charles_Wilkes@uml.edu');
+-- business school
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values
+('6', 'Sarah Johnson', 'Teaching Professor', 'Manning School of Business', 'sarah_johnson@uml.edu'),
+('7', 'Michael Chen', 'Associate Teaching Professor', 'Manning School of Business', 'michael_chen@uml.edu'),
+('8', 'Linda Patel', 'Associate Teaching Professor', 'Manning School of Business', 'linda_patel@uml.edu'),
+('9', 'Robert Thompson', 'Assistant Teaching Professor', 'Manning School of Business', 'robert_thompson@uml.edu'),
+('10', 'Emily Nguyen', 'Assistant Teaching Professor', 'Manning School of Business', 'emily_nguyen@uml.edu');
+-- engineering school
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values
+('11', 'James O’Connor', 'Teaching Professor', 'Francis College of Engineering', 'james_oconnor@uml.edu'),
+('12', 'Priya Desai', 'Associate Teaching Professor', 'Francis College of Engineering', 'priya_desai@uml.edu'),
+('13', 'Kevin Zhang', 'Associate Teaching Professor', 'Francis College of Engineering', 'kevin_zhang@uml.edu'),
+('14', 'Maria Torres', 'Assistant Teaching Professor', 'Francis College of Engineering', 'maria_torres@uml.edu'),
+('15', 'Daniel Kim', 'Assistant Teaching Professor', 'Francis College of Engineering', 'daniel_kim@uml.edu');
+-- fine arts school
+insert into instructor (instructor_id, instructor_name, title, dept_name, email) values
+('16', 'Amanda Lee', 'Teaching Professor', 'College of Fine Arts, Humanities and Social Sciences', 'amanda_lee@uml.edu'),
+('17', 'Jonathan Rivera', 'Associate Teaching Professor', 'College of Fine Arts, Humanities and Social Sciences', 'jonathan_rivera@uml.edu'),
+('18', 'Catherine Brooks', 'Associate Teaching Professor', 'College of Fine Arts, Humanities and Social Sciences', 'catherine_brooks@uml.edu'),
+('19', 'Elijah Bennett', 'Assistant Teaching Professor', 'College of Fine Arts, Humanities and Social Sciences', 'elijah_bennett@uml.edu'),
+('20', 'Naomi Sinclair', 'Assistant Teaching Professor', 'College of Fine Arts, Humanities and Social Sciences', 'naomi_sinclair@uml.edu');
+-- health science school
+INSERT INTO instructor (instructor_id, instructor_name, title, dept_name, email) VALUES
+('21', 'Allison Grant', 'Teaching Professor', 'Zuckerberg College of Health Sciences', 'allison_grant@uml.edu'),
+('22', 'Marcus Lee', 'Associate Teaching Professor', 'Zuckerberg College of Health Sciences', 'marcus_lee@uml.edu'),
+('23', 'Sofia Martinez', 'Associate Teaching Professor', 'Zuckerberg College of Health Sciences', 'sofia_martinez@uml.edu'),
+('24', 'William Adams', 'Assistant Teaching Professor', 'Zuckerberg College of Health Sciences', 'william_adams@uml.edu'),
+('25', 'Grace Turner', 'Assistant Teaching Professor', 'Zuckerberg College of Health Sciences', 'grace_turner@uml.edu');
 
 -- student
 INSERT INTO student (student_id, name, email, dept_name) VALUES
