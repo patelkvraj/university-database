@@ -1,4 +1,5 @@
 <?php
+include 'config.php';
 
 // init variables
 $success_message = '';
@@ -28,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Please enter a student ID.";
     }
 }
+// include header
+include 'header.php';
 ?>
 
 
@@ -39,12 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <a href="index.html">Home</a> |
-        <a href="student.php">Student Account</a> |
-        <a href="student_register.php">Course Registration</a>
-    </div>
-
     <h1>Student Course History</h1>
 
     <?php if ($success_message): ?>

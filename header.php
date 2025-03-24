@@ -44,6 +44,7 @@ function home_redirect() {
                 | <a href="student.php?student_id=<?php echo $_SESSION['student_id']; ?>">Account Settings</a>
                 | <a href="student_register.php?student_id=<?php echo $_SESSION['student_id']; ?>">Course Registration</a>
                 | <a href="student_history.php?student_id=<?php echo $_SESSION['student_id']; ?>">Course History</a>
+                | <a href="course_rating.php?student_id=<?php echo $_SESSION['student_id']; ?>">Course Rating</a>
             <?php endif; ?>
 
             | <a href="logout.php">Logout</a>
