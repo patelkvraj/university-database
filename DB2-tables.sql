@@ -345,27 +345,67 @@ INSERT INTO instructor (instructor_id, instructor_name, title, dept_name, email)
 ('24', 'William Adams', 'Assistant Teaching Professor', 'Zuckerberg College of Health Sciences', 'william_adams@uml.edu'),
 ('25', 'Grace Turner', 'Assistant Teaching Professor', 'Zuckerberg College of Health Sciences', 'grace_turner@uml.edu');
 
--- student
+
+-- students
+-- undergrad
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('UG001', 'John Smith', 'john.smith@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('UG002', 'Emma Johnson', 'emma.johnson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('UG003', 'Michael Brown', 'michael.brown@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('UG004', 'Sophia Davis', 'sophia.davis@student.uml.edu', 'Miner School of Computer & Information Sciences'),
-('UG005', 'James Wilson', 'james.wilson@student.uml.edu', 'Miner School of Computer & Information Sciences');
+('UG005', 'James Wilson', 'james.wilson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('UG006', 'Hazel Sanchez', 'hazel.sanchez@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('UG007', 'Matthew Morris', 'matthew.morris@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('UG008', 'Victoria Rogers', 'victoria.rogers@student.uml.edu', 'Manning School of Business'),
+('UG009', 'Lucas Reed', 'lucas.reed@student.uml.edu', 'Francis College of Engineering'),
+('UG0010', 'Penelope Cook', 'penelope.cook@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('UG0011', 'David Morgan', 'david.morgan@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('UG0012', 'Riley Bell', 'riley.bell@student.uml.edu', 'Manning School of Business'),
+('UG0013', 'Joseph Bailey', 'joseph.bailey@student.uml.edu', 'Francis College of Engineering'),
+('UG0014', 'Layla Cooper', 'layla.cooper@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('UG0015', 'Samuel Richardson', 'samuel.richardson@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('UG0016', 'Charles Wilkes', 'charles_wilkes@student.uml.edu', 'Francis College of Engineering');
 
+
+-- master
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('MS001', 'Olivia Martinez', 'olivia.martinez@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('MS002', 'William Taylor', 'william.taylor@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('MS003', 'Ava Anderson', 'ava.anderson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('MS004', 'Noah Thomas', 'noah.thomas@student.uml.edu', 'Miner School of Computer & Information Sciences'),
-('MS005', 'Isabella Jackson', 'isabella.jackson@student.uml.edu', 'Miner School of Computer & Information Sciences');
+('MS005', 'Isabella Jackson', 'isabella.jackson@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('MS006', 'Chloe Campbell', 'chloe.campbell@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('MS007', 'Mason Mitchell', 'mason.mitchell@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('MS008', 'Lily Roberts', 'lily.roberts@student.uml.edu', 'Manning School of Business'),
+('MS009', 'Ethan Carter', 'ethan.carter@student.uml.edu', 'Francis College of Engineering'),
+('MS0010', 'Aria Phillips', 'aria.phillips@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('MS0011', 'Logan Evans', 'logan.evans@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('MS0012', 'Scarlett Turner', 'scarlett.turner@student.uml.edu', 'Manning School of Business'),
+('MS0013', 'Elijah Torres', 'elijah.torres@student.uml.edu', 'Francis College of Engineering'),
+('MS0014', 'Zoe Parker', 'zoe.parker@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('MS0015', 'Aiden Collins', 'aiden.collins@student.uml.edu', 'Manning School of Business'),
+('MS0016', 'Nora Edwards', 'nora.edwards@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('MS0017', 'Jayden Stewart', 'jayden.stewart@student.uml.edu', 'Francis College of Engineering');
 
+-- PHD
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('PH001', 'Liam White', 'liam.white@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('PH002', 'Charlotte Harris', 'charlotte.harris@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('PH003', 'Benjamin Clark', 'benjamin.clark@student.uml.edu', 'Miner School of Computer & Information Sciences'),
 ('PH004', 'Amelia Lewis', 'amelia.lewis@student.uml.edu', 'Miner School of Computer & Information Sciences'),
-('PH005', 'Henry Walker', 'henry.walker@student.uml.edu', 'Miner School of Computer & Information Sciences');
+('PH005', 'Henry Walker', 'henry.walker@student.uml.edu', 'Miner School of Computer & Information Sciences'),
+('PH006', 'Mia Hall', 'mia.hall@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('PH007', 'Alexander Allen', 'alexander.allen@student.uml.edu', 'Francis College of Engineering'),
+('PH008', 'Harper Young', 'harper.young@student.uml.edu', 'Manning School of Business'),
+('PH009', 'Daniel King', 'daniel.king@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('PH0010', 'Abigail Wright', 'abigail.wright@student.uml.edu', 'Francis College of Engineering'),
+('PH0011', 'Sebastian Scott', 'sebastian.scott@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('PH0012', 'Evelyn Green', 'evelyn.green@student.uml.edu', 'Manning School of Business'),
+('PH0013', 'Jack Baker', 'jack.baker@student.uml.edu', 'Francis College of Engineering'),
+('PH0014', 'Ella Adams', 'ella.adams@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
+('PH0015', 'Logan Nelson', 'logan.nelson@student.uml.edu', 'Zuckerberg College of Health Sciences'),
+('PH0016', 'Grace Hill', 'grace.hill@student.uml.edu', 'Manning School of Business'),
+('PH0017', 'Lucas Ramirez', 'lucas.ramirez@student.uml.edu', 'Francis College of Engineering');
 
 -- phd
 INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES
