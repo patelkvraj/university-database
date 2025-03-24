@@ -365,8 +365,6 @@ INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('UG0014', 'Layla Cooper', 'layla.cooper@student.uml.edu', 'College of Fine Arts, Humanities and Social Sciences'),
 ('UG0015', 'Samuel Richardson', 'samuel.richardson@student.uml.edu', 'Zuckerberg College of Health Sciences'),
 ('UG0016', 'Charles Wilkes', 'charles_wilkes@student.uml.edu', 'Francis College of Engineering');
-
-
 -- master
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('MS001', 'Olivia Martinez', 'olivia.martinez@student.uml.edu', 'Miner School of Computer & Information Sciences'),
@@ -386,7 +384,6 @@ INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('MS0015', 'Aiden Collins', 'aiden.collins@student.uml.edu', 'Manning School of Business'),
 ('MS0016', 'Nora Edwards', 'nora.edwards@student.uml.edu', 'Zuckerberg College of Health Sciences'),
 ('MS0017', 'Jayden Stewart', 'jayden.stewart@student.uml.edu', 'Francis College of Engineering');
-
 -- PHD
 INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('PH001', 'Liam White', 'liam.white@student.uml.edu', 'Miner School of Computer & Information Sciences'),
@@ -407,13 +404,26 @@ INSERT INTO student (student_id, name, email, dept_name) VALUES
 ('PH0016', 'Grace Hill', 'grace.hill@student.uml.edu', 'Manning School of Business'),
 ('PH0017', 'Lucas Ramirez', 'lucas.ramirez@student.uml.edu', 'Francis College of Engineering');
 
+-- course stuff
 -- phd
 INSERT INTO PhD (student_id, qualifier, proposal_defence_date, dissertation_defence_date) VALUES
 ('PH001', 'Passed', '2023-05-15', NULL),
 ('PH002', 'Passed', '2022-11-10', NULL),
 ('PH003', 'Scheduled', NULL, NULL),
 ('PH004', 'Passed', '2023-09-20', NULL),
-('PH005', 'Not Started', NULL, NULL);
+('PH005', 'Not Started', NULL, NULL),
+('PH006', 'Passed', '2023-06-12', NULL),
+('PH007', 'Scheduled', NULL, NULL),
+('PH008', 'Not Started', NULL, NULL),
+('PH009', 'Passed', '2022-10-05', NULL),
+('PH0010', 'Passed', '2023-04-18', '2024-12-10'),
+('PH0011', 'Scheduled', '2024-09-20', NULL),
+('PH0012', 'Not Started', NULL, NULL),
+('PH0013', 'Passed', '2023-08-30', NULL),
+('PH0014', 'Passed', '2022-11-22', '2024-06-01'),
+('PH0015', 'Scheduled', NULL, NULL),
+('PH0016', 'Passed', '2023-03-14', NULL),
+('PH0017', 'Passed', '2022-09-10', '2024-04-25');
 
 -- master
 INSERT INTO master (student_id, total_credits) VALUES
@@ -421,7 +431,19 @@ INSERT INTO master (student_id, total_credits) VALUES
 ('MS002', 24),
 ('MS003', 12),
 ('MS004', 30),
-('MS005', 6);
+('MS005', 6),
+('MS006', 18),
+('MS007', 24),
+('MS008', 12),
+('MS009', 30),
+('MS0010', 6),
+('MS0011', 21),
+('MS0012', 27),
+('MS0013', 15),
+('MS0014', 33),
+('MS0015', 9),
+('MS0016', 36),
+('MS0017', 12);
 
 -- undergrad
 INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
@@ -430,6 +452,17 @@ INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
 ('UG003', 15, 'Freshman'),
 ('UG004', 90, 'Senior'),
 ('UG005', 45, 'Sophomore');
+('UG006', 15, 'Freshman'),
+('UG007', 36, 'Sophomore'),
+('UG008', 78, 'Junior'),
+('UG009', 91, 'Senior'),
+('UG0010', 60, 'Junior'),
+('UG0011', 27, 'Freshman'),
+('UG0012', 45, 'Sophomore'),
+('UG0013', 88, 'Junior'),
+('UG0014', 33, 'Sophomore'),
+('UG0015', 96, 'Senior'),
+('UG0016', 51, 'Sophomore');
 
 -- classroom
 INSERT INTO classroom (classroom_id, building, room_number, capacity) VALUES
