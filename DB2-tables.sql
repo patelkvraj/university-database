@@ -215,14 +215,42 @@ CREATE TABLE student_todo (
 );
 
 -- account
-insert into account (email, password, type) values ('admin@uml.edu', '123456', 'admin');
-insert into account (email, password, type) values ('dbadams@cs.uml.edu', '123456', 'instructor');
-insert into account (email, password, type) values ('slin@cs.uml.edu', '123456', 'instructor');
-insert into account (email, password, type) values ('Yelena_Rykalova@uml.edu', '123456', 'instructor');
-insert into account (email, password, type) values ('Johannes_Weis@uml.edu', '123456', 'instructor');
-insert into account (email, password, type) values ('Charles_Wilkes@uml.edu', '123456', 'instructor');
+insert into account (email, password, type) values 
+-- admin
+('admin@uml.edu', '123456', 'admin'),
 
-INSERT INTO account (email, password, type) VALUES
+-- instructors
+('dbadams@cs.uml.edu', '123456', 'instructor'),
+('slin@cs.uml.edu', '123456', 'instructor'),
+('Yelena_Rykalova@uml.edu', '123456', 'instructor'),
+('Johannes_Weis@uml.edu', '123456', 'instructor'),
+('Charles_Wilkes@uml.edu', '123456', 'instructor'),
+
+('sarah_johnson@uml.edu', '123456', 'instructor'),
+('michael_chen@uml.edu', '123456', 'instructor'),
+('linda_patel@uml.edu', '123456', 'instructor'),
+('robert_thompson@uml.edu', '123456', 'instructor'),
+('emily_nguyen@uml.edu', '123456', 'instructor'),
+
+('james_oconnor@uml.edu', '123456', 'instructor'),
+('priya_desai@uml.edu', '123456', 'instructor'),
+('kevin_zhang@uml.edu', '123456', 'instructor'),
+('maria_torres@uml.edu', '123456', 'instructor'),
+('daniel_kim@uml.edu', '123456', 'instructor'),
+
+('amanda_lee@uml.edu', '123456', 'instructor'),
+('jonathan_rivera@uml.edu', '123456', 'instructor'),
+('catherine_brooks@uml.edu', '123456', 'instructor'),
+('elijah_bennett@uml.edu', '123456', 'instructor'),
+('naomi_sinclair@uml.edu', '123456', 'instructor'),
+
+('allison_grant@uml.edu', '123456', 'instructor'),
+('marcus_lee@uml.edu', '123456', 'instructor'),
+('sofia_martinez@uml.edu', '123456', 'instructor'),
+('william_adams@uml.edu', '123456', 'instructor'),
+('grace_turner@uml.edu', '123456', 'instructor'),
+
+-- students
 ('john.smith@student.uml.edu', 'password123', 'student'),
 ('emma.johnson@student.uml.edu', 'password123', 'student'),
 ('michael.brown@student.uml.edu', 'password123', 'student'),
@@ -237,7 +265,41 @@ INSERT INTO account (email, password, type) VALUES
 ('charlotte.harris@student.uml.edu', 'password123', 'student'),
 ('benjamin.clark@student.uml.edu', 'password123', 'student'),
 ('amelia.lewis@student.uml.edu', 'password123', 'student'),
-('henry.walker@student.uml.edu', 'password123', 'student');
+('henry.walker@student.uml.edu', 'password123', 'student'),
+('mia.hall@student.uml.edu', 'password123', 'student'),
+('alexander.allen@student.uml.edu', 'password123', 'student'),
+('harper.young@student.uml.edu', 'password123', 'student'),
+('daniel.king@student.uml.edu', 'password123', 'student'),
+('abigail.wright@student.uml.edu', 'password123', 'student'),
+('sebastian.scott@student.uml.edu', 'password123', 'student'),
+('evelyn.green@student.uml.edu', 'password123', 'student'),
+('jack.baker@student.uml.edu', 'password123', 'student'),
+('ella.adams@student.uml.edu', 'password123', 'student'),
+('logan.nelson@student.uml.edu', 'password123', 'student'),
+('grace.hill@student.uml.edu', 'password123', 'student'),
+('lucas.ramirez@student.uml.edu', 'password123', 'student'),
+('chloe.campbell@student.uml.edu', 'password123', 'student'),
+('mason.mitchell@student.uml.edu', 'password123', 'student'),
+('lily.roberts@student.uml.edu', 'password123', 'student'),
+('ethan.carter@student.uml.edu', 'password123', 'student'),
+('aria.phillips@student.uml.edu', 'password123', 'student'),
+('logan.evans@student.uml.edu', 'password123', 'student'),
+('scarlett.turner@student.uml.edu', 'password123', 'student'),
+('elijah.torres@student.uml.edu', 'password123', 'student'),
+('zoe.parker@student.uml.edu', 'password123', 'student'),
+('aiden.collins@student.uml.edu', 'password123', 'student'),
+('nora.edwards@student.uml.edu', 'password123', 'student'),
+('jayden.stewart@student.uml.edu', 'password123', 'student'),
+('hazel.sanchez@student.uml.edu', 'password123', 'student'),
+('matthew.morris@student.uml.edu', 'password123', 'student'),
+('victoria.rogers@student.uml.edu', 'password123', 'student'),
+('lucas.reed@student.uml.edu', 'password123', 'student'),
+('penelope.cook@student.uml.edu', 'password123', 'student'),
+('david.morgan@student.uml.edu', 'password123', 'student'),
+('riley.bell@student.uml.edu', 'password123', 'student'),
+('joseph.bailey@student.uml.edu', 'password123', 'student'),
+('layla.cooper@student.uml.edu', 'password123', 'student'),
+('samuel.richardson@student.uml.edu', 'password123', 'student');
 
 -- department
 insert into department (dept_name, location) values ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
@@ -245,7 +307,6 @@ insert into department (dept_name, location) values ('Manning School of Business
 insert into department (dept_name, location) values ('Francis College of Engineering', 'Perry Hall, 1 University Ave, Lowell, MA 01854');
 insert into department (dept_name, location) values ('College of Fine Arts, Humanities and Social Sciences', 'Dugan Halll 106 883 Broadway Street Lowell, MA 01854');
 insert into department (dept_name, location) values ('Zuckerberg College of Health Sciences', 'Manning Building, 113 Wilder St Suite 400 Lowell, MA 01854');
-
 
 -- instructor
 -- CS school
