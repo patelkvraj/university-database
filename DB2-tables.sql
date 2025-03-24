@@ -207,6 +207,11 @@ INSERT INTO account (email, password, type) VALUES
 
 -- department
 insert into department (dept_name, location) values ('Miner School of Computer & Information Sciences', 'Dandeneau Hall, 1 University Avenue, Lowell, MA 01854');
+insert into department (dept_name, location) values ('Manning School of Business','Pulichino Tong Business Center, 72 University Ave, Lowell, MA 01854');
+insert into department (dept_name, location) values ('Francis College of Engineering', 'Perry Hall, 1 University Ave, Lowell, MA 01854');
+insert into department (dept_name, location) values ('College of Fine Arts, Humanities and Social Sciences', 'Dugan Halll 106 883 Broadway Street Lowell, MA 01854');
+insert into department (dept_name, location) values ('Zuckerberg College of Health Sciences', 'Manning Building, 113 Wilder St Suite 400 Lowell, MA 01854');
+
 
 -- instructor
 insert into instructor (instructor_id, instructor_name, title, dept_name, email) values ('1', 'David Adams', 'Teaching Professor', 'Miner School of Computer & Information Sciences','dbadams@cs.uml.edu');
