@@ -246,6 +246,58 @@ include 'header.php';
                 <p><a href="student_register.php?student_id=<?php echo $student_id; ?>">View All Available Courses</a></p>
             <?php endif; ?>
         </div>
+        <div>
+            <h2>Upcoming Deadlines</h2>
+            <?php
+            // query to get upcoming deadlines for this student
+            $upcoming_sql = "SELECT st.todo_id, st.todo_title, st.due_date, st.is_completed,
+                                ce.course_id, c.course_name, ce.event_type
+                            FROM student_todo st
+                            LEFT JOIN course_event ce ON st.event_id = ce.event_id
+                            LEFT JOIN course c ON ce.course_id = c.course_id
+                            WHERE st.student_id = '$student_id'
+                            AND st.is_completed = 0
+                            AND st.due_date >= CURDATE()
+                            ORDER BY st.due_date ASC
+                            LIMIT 5";
+            $upcoming_result = mysqli_query($conn, $upcoming_sql);
+
+            if (mysqli_num_rows($upcoming_result) > 0):
+            ?>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Due Date</th>
+                            <th>Title</th>
+                            <th>Course</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($todo = mysqli_fetch_assoc($upcoming_result)): ?>
+                            <tr>
+                                <td><?php echo date('M d, Y', strtotime($todo['due_date'])); ?></td>
+                                <td><?php echo $todo['todo_title']; ?></td>
+                                <td>
+                                    <?php
+                                    if ($todo['course_id']) {
+                                        echo $todo['course_id'] . ': ' . $todo['course_name'];
+                                    } else {
+                                        echo 'Personal';
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo $todo['event_type'] ? ucfirst($todo['event_type']) : 'Task'; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+                <p><a href="student_todo.php?student_id=<?php echo $student_id; ?>">View all To-Do Items</a></p>
+            <?php else: ?>
+                <p>No upcoming deadlines found.</p>
+                <p><a href="student_todo.php?student_id=<?php echo $student_id; ?>">Add To-Do Items</a></p>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 </body>
 </html>

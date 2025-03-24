@@ -180,6 +180,40 @@ create table take
 		on delete cascade
 	);
 
+-- table for course deadlines/events
+CREATE TABLE course_event (
+    event_id INT AUTO_INCREMENT,
+    course_id VARCHAR(20),
+    section_id VARCHAR(10),
+    semester VARCHAR(6),
+    year NUMERIC(4,0),
+    event_title VARCHAR(100) NOT NULL,
+    event_description TEXT,
+    event_date DATE NOT NULL,
+    event_type VARCHAR(20), -- 'exam', 'assignment', 'project', etc.
+    PRIMARY KEY (event_id),
+    FOREIGN KEY (course_id, section_id, semester, year) 
+        REFERENCES section(course_id, section_id, semester, year)
+        ON DELETE CASCADE
+);
+
+-- table for student todos (both course-related and personal)
+CREATE TABLE student_todo (
+    todo_id INT AUTO_INCREMENT,
+    student_id VARCHAR(10),
+    event_id INT,
+    todo_title VARCHAR(100),
+    todo_description TEXT,
+    due_date DATE,
+    is_completed BOOLEAN DEFAULT 0,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (todo_id),
+    FOREIGN KEY (student_id) REFERENCES student(student_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES course_event(event_id)
+        ON DELETE SET NULL
+);
+
 -- account
 insert into account (email, password, type) values ('admin@uml.edu', '123456', 'admin');
 insert into account (email, password, type) values ('dbadams@cs.uml.edu', '123456', 'instructor');
@@ -412,4 +446,54 @@ INSERT INTO masterGrader (student_id, course_id, section_id, semester, year) VAL
 
 -- undegradgrader
 INSERT INTO undergraduateGrader (student_id, course_id, section_id, semester, year) VALUES
-('UG004', 'COMP1010', 'Section001', 'Spring', 2025); 
+('UG004', 'COMP1010', 'Section001', 'Spring', 2025);
+
+-- COMP1010 Section001 Events
+INSERT INTO course_event (course_id, section_id, semester, year, event_title, event_description, event_date, event_type) VALUES
+('COMP1010', 'Section001', 'Spring', 2025, 'Midterm Exam', 'Covers chapters 1-5', '2025-03-15', 'exam'),
+('COMP1010', 'Section001', 'Spring', 2025, 'Assignment 1', 'Basic programming concepts', '2025-02-10', 'assignment'),
+('COMP1010', 'Section001', 'Spring', 2025, 'Assignment 2', 'Control structures and loops', '2025-02-24', 'assignment'),
+('COMP1010', 'Section001', 'Spring', 2025, 'Programming Project 1', 'Individual project on algorithms', '2025-04-05', 'project'),
+('COMP1010', 'Section001', 'Spring', 2025, 'Final Exam', 'Comprehensive exam', '2025-05-20', 'exam');
+
+-- COMP1010 Section002 Events
+INSERT INTO course_event (course_id, section_id, semester, year, event_title, event_description, event_date, event_type) VALUES
+('COMP1010', 'Section002', 'Spring', 2025, 'Midterm Exam', 'Covers chapters 1-5', '2025-03-17', 'exam'),
+('COMP1010', 'Section002', 'Spring', 2025, 'Assignment 1', 'Basic programming concepts', '2025-02-12', 'assignment'),
+('COMP1010', 'Section002', 'Spring', 2025, 'Assignment 2', 'Control structures and loops', '2025-02-26', 'assignment'),
+('COMP1010', 'Section002', 'Spring', 2025, 'Programming Project 1', 'Individual project on algorithms', '2025-04-07', 'project'),
+('COMP1010', 'Section002', 'Spring', 2025, 'Final Exam', 'Comprehensive exam', '2025-05-22', 'exam');
+
+-- COMP1020 Section001 Events
+INSERT INTO course_event (course_id, section_id, semester, year, event_title, event_description, event_date, event_type) VALUES
+('COMP1020', 'Section001', 'Spring', 2025, 'Quiz 1', 'Basic OOP concepts', '2025-02-05', 'quiz'),
+('COMP1020', 'Section001', 'Spring', 2025, 'Quiz 2', 'Inheritance and polymorphism', '2025-03-05', 'quiz'),
+('COMP1020', 'Section001', 'Spring', 2025, 'Midterm Exam', 'Covers all material from weeks 1-7', '2025-03-20', 'exam'),
+('COMP1020', 'Section001', 'Spring', 2025, 'Group Project', 'Design and implement a small application', '2025-04-15', 'project'),
+('COMP1020', 'Section001', 'Spring', 2025, 'Final Exam', 'Comprehensive with focus on latter half of course', '2025-05-18', 'exam');
+
+-- COMP2010 Section001 Events
+INSERT INTO course_event (course_id, section_id, semester, year, event_title, event_description, event_date, event_type) VALUES
+('COMP2010', 'Section001', 'Spring', 2025, 'Lab 1', 'Data structures implementation', '2025-02-08', 'lab'),
+('COMP2010', 'Section001', 'Spring', 2025, 'Lab 2', 'Searching and sorting algorithms', '2025-02-22', 'lab'),
+('COMP2010', 'Section001', 'Spring', 2025, 'Lab 3', 'Trees and graphs', '2025-03-08', 'lab'),
+('COMP2010', 'Section001', 'Spring', 2025, 'Midterm', 'Written exam on algorithm analysis', '2025-03-22', 'exam'),
+('COMP2010', 'Section001', 'Spring', 2025, 'Final Project', 'Algorithm implementation and analysis', '2025-04-25', 'project'),
+('COMP2010', 'Section001', 'Spring', 2025, 'Final Exam', 'Comprehensive exam', '2025-05-15', 'exam');
+
+-- COMP2040 Section001 Events
+INSERT INTO course_event (course_id, section_id, semester, year, event_title, event_description, event_date, event_type) VALUES
+('COMP2040', 'Section001', 'Spring', 2025, 'Paper 1', 'Research summary on selected topic', '2025-02-20', 'assignment'),
+('COMP2040', 'Section001', 'Spring', 2025, 'Presentation 1', 'Group presentations on research areas', '2025-03-10', 'presentation'),
+('COMP2040', 'Section001', 'Spring', 2025, 'Midterm Examination', 'In-class written exam', '2025-03-25', 'exam'),
+('COMP2040', 'Section001', 'Spring', 2025, 'Paper 2', 'Original research proposal', '2025-04-20', 'assignment'),
+('COMP2040', 'Section001', 'Spring', 2025, 'Final Presentation', 'Final project presentation', '2025-05-10', 'presentation'),
+('COMP2040', 'Section001', 'Spring', 2025, 'Final Exam', 'Comprehensive written exam', '2025-05-25', 'exam');
+
+-- Insert some sample student todos (personal notes) for demonstration
+INSERT INTO student_todo (student_id, todo_title, todo_description, due_date, is_completed) VALUES
+('UG001', 'Study Group Meeting', 'Meet with study group for COMP2040', '2025-02-15', 0),
+('UG001', 'Library Research', 'Find resources for COMP2040 paper', '2025-02-05', 1),
+('UG002', 'Meet with Advisor', 'Discuss course selection for next semester', '2025-03-01', 0),
+('UG003', 'Buy Textbook', 'Get textbook for COMP1020', '2025-01-30', 1),
+('UG004', 'Internship Application', 'Submit application for summer internship', '2025-02-28', 0);
