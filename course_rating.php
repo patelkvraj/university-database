@@ -15,16 +15,14 @@ if (isset($_GET['student_id'])) {
     $_SERVER["REQUEST_METHOD"] = "POST";
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : $student_id;
-
     if (!empty($student_id)) {
-        $sql = "SELECT course_id, semester, grade FROM take WHERE student_id = '$student_id'";
+        $sql = "SELECT course_id, student_id FROM take WHERE student_id = '$student_id' AND grade <> 'NULL'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             $course_info = mysqli_fetch_assoc($result);
         } else {
-            $error_message = "Student not found.";
+            $error_message = "No courses to rate.";
         }
     } else {
         $error_message = "Please enter a student ID.";
@@ -43,15 +41,6 @@ include 'header.php';
 </head>
 <body>
     <h1>Course Rating</h1>
-
-    <?php if ($success_message): ?>
-        <div><strong><?php echo $success_message; ?></strong></div>
-    <?php endif; ?>
-
-    <?php if ($error_message): ?>
-        <div><strong><?php echo $error_message; ?></strong></div>
-    <?php endif; ?>
-
     <form method="post" action="">
         <div>
             <label for="student_id">Student ID:</label>
