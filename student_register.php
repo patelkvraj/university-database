@@ -72,7 +72,7 @@ if (!empty($student_id)) {
                                                 AND t2.year = s2.year
                                             JOIN time_slot ts2 ON s2.time_slot_id = ts2.time_slot_id
                                             WHERE t2.student_id = '$student_id'
-                                            AND t2.semester = 'Spring' AND t2.year = 2025
+                                            AND t2.semester = 'Spring' AND ts.year = 2025
                                             AND s2.time_slot_id IS NOT NULL
                                             AND ts.day = ts2.day
                                             AND (( ts.start_time <= ts2.start_time AND ts.end_time > ts2.start_time)
@@ -177,6 +177,22 @@ if (isset($_POST['register'])) {
                 throw new Exception("Missing prerequisites: " . implode(", ", $missing_prereqs));
             }
 
+            // check if student is already enrolled for another section of the same course
+            $duplicate_check_sql = "SELECT t.section_id, c.course_name
+                                    FROM take t
+                                    JOIN course c ON t.course_id = c.course_id
+                                    WHERE t.student_id = '$student_id'
+                                    AND t.course_id = '$course_id'
+                                    AND t.semester = '$semester'
+                                    AND t.year = $year";
+
+            $duplicate_result = mysqli_query($conn, $duplicate_check_sql);
+
+            if (mysqli_num_rows($duplicate_result) > 0) {
+                $duplicate_section = mysqli_fetch_assoc($duplicate_result);
+                $success_message = "You are already enrolled in {$course_id} ({$duplicate_section['course_name']}] section {$duplicate_section['section_id']}. Registration completed for section $section_id.";
+            }
+
             // check for time slot conflicts with already registered courses
             $time_slot_sql = "SELECT ts.time_slot_id, ts.day, ts.start_time, ts.end_time
                             FROM section s
@@ -279,7 +295,10 @@ if (isset($_POST['register'])) {
 
             // commit transaction
             mysqli_commit($conn);
-            $success_message = "Successfully registered for $course_id - $section_id!";
+
+            if (empty($success_message)) {
+                $success_message = "Successfully registered for $course_id - $section_id!";
+            }
 
             // refresh page to show updated sections
             header("Location: student_register.php?student_id=" . $student_id);
@@ -358,10 +377,26 @@ include 'header.php';
                         <option value="">-- Select a section --</option>
                         <?php foreach ($available_sections as $section): ?>
                             <?php
+                                // check if student is already registered for this course (different section)
+                                $already_registered = false;
+                                $course_id = $section['course_id'];
+                                foreach ($registered_courses as $reg_course) {
+                                    if ($reg_course['course_id'] == $course_id &&
+                                        $reg_course['semester'] == 'Spring' &&
+                                        $reg_course['year'] == 2025) {
+                                        $already_registered = true;
+                                        break;
+                                    }
+                                }
+
                                 $section_full = ($section['enrolled_students'] >= 15);
                                 $has_time_conflict = ($section['has_time_conflict'] == 'Yes');
                                 $section_value = "{$section['course_id']}|{$section['section_id']}|{$section['semester']}|{$section['year']}";
                                 $section_display = "{$section['course_id']} - {$section['course_name']} ({$section['section_id']})";
+
+                                if ($already_registered) {
+                                    $section_display .= " [ALREADY REGISTERED IN DIFFERENT SECTION]";
+                                }
                                 if ($section_full) {
                                     $section_display .= "[FULL]";
                                 } else {
@@ -393,10 +428,24 @@ include 'header.php';
                         <th>Schedule</th>
                         <th>Location</th>
                         <th>Enrollment</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($available_sections as $section): ?>
+                        <?php
+                            // check if student is already registered for this course (different section)
+                            $already_registered = false;
+                            $course_id = $section['course_id'];
+                            foreach ($registered_courses as $reg_course) {
+                                if ($reg_course['course_id'] == $course_id &&
+                                    $reg_course['semester'] == 'Spring' &&
+                                    $reg_course['year'] == 2025) {
+                                    $already_registered = true;
+                                    break;
+                                }
+                            }
+                        ?>
                         <tr>
                             <td><?php echo $section['course_id']; ?></td>
                             <td><?php echo $section['course_name']; ?></td>
@@ -422,6 +471,19 @@ include 'header.php';
                                 ?>
                             </td>
                             <td><?php echo $section['enrolled_students']; ?>/15</td>
+                            <td>
+                                <?php
+                                    if ($already_registered) {
+                                        echo "<strong style='color:orange'>ALREADY ENROLLED</strong>";
+                                    } else if ($section['enrolled_students'] >= 15) {
+                                        echo "<strong style='color:red'>FULL</strong>";
+                                    } else if ($section['has_time_conflict'] == 'Yes') {
+                                        echo "<strong style='color:red'>TIME CONFLICT</strong>";
+                                    } else {
+                                        echo "<strong style='color:green'>AVAILABLE</strong>";
+                                    }
+                                ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -499,7 +561,7 @@ include 'header.php';
                             <td><?php echo $course['instructor_name'] ?? 'TBA'; ?></td>
                             <td>
                                 <?php
-                                    if ($course['grade']) {
+                                    if (isset($course['grade']) && $course['grade']) {
                                         echo '<strong>' . $course['grade'] . '</strong>';
                                     } else {
                                         echo 'In Progress';
