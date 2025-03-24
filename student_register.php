@@ -72,7 +72,7 @@ if (!empty($student_id)) {
                                                 AND t2.year = s2.year
                                             JOIN time_slot ts2 ON s2.time_slot_id = ts2.time_slot_id
                                             WHERE t2.student_id = '$student_id'
-                                            AND t2.semester = 'Spring' AND ts.year = 2025
+                                            AND t2.semester = 'Spring' AND t2.year = 2025
                                             AND s2.time_slot_id IS NOT NULL
                                             AND ts.day = ts2.day
                                             AND (( ts.start_time <= ts2.start_time AND ts.end_time > ts2.start_time)
@@ -190,7 +190,7 @@ if (isset($_POST['register'])) {
 
             if (mysqli_num_rows($duplicate_result) > 0) {
                 $duplicate_section = mysqli_fetch_assoc($duplicate_result);
-                $success_message = "You are already enrolled in {$course_id} ({$duplicate_section['course_name']}] section {$duplicate_section['section_id']}. Registration completed for section $section_id.";
+                $success_message = "You are already enrolled in {$course_id} ({$duplicate_section['course_name']}) section {$duplicate_section['section_id']}. Registration completed for section $section_id.";
             }
 
             // check for time slot conflicts with already registered courses
