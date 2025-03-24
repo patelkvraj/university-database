@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     if ($_POST['action'] == 'add_todo') {
         $todo_title = mysqli_real_escape_string($conn, $_POST['todo_title']);
         $todo_description = mysqli_real_escape_string($conn, $_POST['todo_description']);
-        $due_data = $_POST['due_date'];
+        $due_date = $_POST['due_date'];
 
         // insert new personal todo
         $sql = "INSERT INTO student_todo (student_id, todo_title, todo_description, due_date, is_completed)
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
 // if student_id is provided, fetch student info
 if (!empty($student_id)) {
     // fetch student info
-    $studnet_sql = "SELECT s.*,
+    $student_sql = "SELECT s.*,
                     CASE
                         WHEN u.student_id IS NOT NULL THEN 'undergraduate'
                         WHEN m.student_id IS NOT NULL THEN 'master'
@@ -312,7 +312,6 @@ include 'header.php';
                                 <td><?php echo $todo['todo_title']; ?></td>
                                 <td><?php echo $todo['todo_description']; ?></td>
                                 <td><?php echo date('M d, Y', strtotime($todo['due_date'])); ?></td>
-                                <td><?php echo ucfirst($todo['event_type']); ?></td>
                                 <td>
                                     <form method="post" action="">
                                         <input type="hidden" name="action" value="mark_completed">
