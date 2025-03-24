@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
 
         // insert new personal todo
         $sql = "INSERT INTO student_todo (student_id, todo_title, todo_description, due_date, is_completed)
-                VALUES ('$student_id', '$todo_title', '$todo_description', '$due_data', 0)";
+                VALUES ('$student_id', '$todo_title', '$todo_description', '$due_date', 0)";
 
         if (mysqli_query($conn, $sql)) {
             $success_message = "New to-do item added successfully!";
