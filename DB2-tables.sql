@@ -451,7 +451,7 @@ INSERT INTO undergraduate (student_id, total_credits, class_standing) VALUES
 ('UG002', 30, 'Sophomore'),
 ('UG003', 15, 'Freshman'),
 ('UG004', 90, 'Senior'),
-('UG005', 45, 'Sophomore');
+('UG005', 45, 'Sophomore'),
 ('UG006', 15, 'Freshman'),
 ('UG007', 36, 'Sophomore'),
 ('UG008', 78, 'Junior'),
