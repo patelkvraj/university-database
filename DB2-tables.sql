@@ -1391,11 +1391,52 @@ UPDATE section SET instructor_id = '1012', classroom_id = 'CL010', time_slot_id 
 UPDATE section SET instructor_id = '1004', classroom_id = 'CL005', time_slot_id = 'TS8' WHERE course_id = 'COMP4040' AND section_id = 'Section4040S07' AND semester = 'Spring' AND year = 2024;
 UPDATE section SET instructor_id = '1017', classroom_id = 'CL003', time_slot_id = 'TS14' WHERE course_id = 'COMP4040' AND section_id = 'Section4040S08' AND semester = 'Spring' AND year = 2025;
 
--- prereq
+-- prereq WE MIGHT HAVE TO DELETE A BUNCH OF ROWS IDK
 INSERT INTO prereq (course_id, prereq_id) VALUES
 ('COMP1020', 'COMP1010'),
 ('COMP2010', 'COMP1020'),
 ('COMP2040', 'COMP2010');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN2002', 'BUSN1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3003', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3100', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3200', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3300', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3400', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3500', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3600', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('BUSN3700', 'BUSN2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR2002', 'ENGR1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR2003', 'ENGR1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3004', 'ENGR2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3005', 'ENGR2003');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3100', 'ENGR2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3200', 'ENGR2003');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3300', 'ENGR2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3400', 'ENGR2003');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('ENGR3500', 'ENGR2002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2001', 'FAHS1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2002', 'FAHS1002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2100', 'FAHS1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2200', 'FAHS1002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2300', 'FAHS1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2400', 'FAHS1002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2500', 'FAHS1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('FAHS2600', 'FAHS1002');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2001', 'HLTH1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2100', 'HLTH1100');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2200', 'HLTH1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2300', 'HLTH1100');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2400', 'HLTH1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2500', 'HLTH1100');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2600', 'HLTH1001');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('HLTH2700', 'HLTH1100');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP2040', 'COMP1010');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP2010', 'COMP1020');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP3010', 'COMP2040');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP3020', 'COMP2010');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP3050', 'COMP2040');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP3080', 'COMP2010');
+INSERT INTO prereq (course_id, prereq_id) VALUES ('COMP4040', 'COMP3010');
 
 -- advise - for phd students
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES
