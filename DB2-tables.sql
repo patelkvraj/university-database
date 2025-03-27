@@ -124,7 +124,7 @@ create table advise
 
 create table TA
 	(student_id		varchar(10),
-	 course_id		varchar(20),
+	 course_id		varchar(8),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -138,7 +138,7 @@ create table TA
 
 create table masterGrader
 	(student_id		varchar(10),
-	 course_id		varchar(20),
+	 course_id		varchar(8),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -152,7 +152,7 @@ create table masterGrader
 
 create table undergraduateGrader
 	(student_id		varchar(10),
-	 course_id		varchar(20),
+	 course_id		varchar(8),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -166,7 +166,7 @@ create table undergraduateGrader
 
 create table take
 	(student_id		varchar(10), 
-	 course_id		varchar(20),
+	 course_id		varchar(8),
 	 section_id		varchar(10), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
@@ -178,7 +178,7 @@ create table take
 		on delete cascade,
 	 foreign key (student_id) references student (student_id)
 		on delete cascade
-	);
+);
 
 -- table for course deadlines/events
 CREATE TABLE course_event (
