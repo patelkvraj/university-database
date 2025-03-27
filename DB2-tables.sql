@@ -507,7 +507,7 @@ insert into course (course_id, course_name, credits) values
 ('COMP1020', 'Computing II', 3),
 ('COMP2010', 'Computing III', 3),
 ('COMP2040', 'Computing IV', 3),
-('COMP2010', 'Data Structures', 3),
+('COMP3000', 'Data Structures', 3),
 ('COMP3010', 'Operating Systems', 3),
 ('COMP3020', 'Algorithms', 3),
 ('COMP3050', 'Software Engineering', 3),
