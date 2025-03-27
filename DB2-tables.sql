@@ -562,31 +562,31 @@ insert into course (course_id, course_name, credits) values
 
 -- section
 -- First, create all the sections needed
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section101', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section102', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section103', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section104', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section101', 'Spring', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section102', 'Spring', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section101', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section102', 'Fall', 2023);
-insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section201', 'Spring', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES (course_id, section_id, semester, year),
+('COMP1010', 'Section101', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1010', 'Section102', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1010', 'Section103', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1010', 'Section104', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1020', 'Section101', 'Spring', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1020', 'Section102', 'Spring', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2010', 'Section101', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2010', 'Section102', 'Fall', 2023);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2040', 'Section201', 'Spring', 2023);
 
 -- Add Spring 2025 sections
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section001', 'Spring', 2025);
-insert into section (course_id, section_id, semester, year) values ('COMP1010', 'Section002', 'Spring', 2025);
-insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section001', 'Spring', 2025);
-insert into section (course_id, section_id, semester, year) values ('COMP2010', 'Section001', 'Spring', 2025);
-insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section001', 'Spring', 2025);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1010', 'Section001', 'Spring', 2025);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1010', 'Section002', 'Spring', 2025);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1020', 'Section001', 'Spring', 2025);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2010', 'Section001', 'Spring', 2025);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2040', 'Section001', 'Spring', 2025);
 
 -- Add Spring 2024 sections that are needed for the take table
-insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section101', 'Spring', 2024);
-insert into section (course_id, section_id, semester, year) values ('COMP1020', 'Section102', 'Spring', 2024);
-insert into section (course_id, section_id, semester, year) values ('COMP2040', 'Section201', 'Spring', 2024);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1020', 'Section101', 'Spring', 2024);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP1020', 'Section102', 'Spring', 2024);
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('COMP2040', 'Section201', 'Spring', 2024);
 
 -- all other classes 
-INSERT INTO section (course_id, section_id, semester, year) VALUES
-('BUSN1001', 'Section1001S01', 'Fall', 2021),
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('BUSN1001', 'Section1001S01', 'Fall', 2021),
 ('BUSN1001', 'Section1001S02', 'Fall', 2022),
 ('BUSN1001', 'Section1001S03', 'Spring', 2022),
 ('BUSN1001', 'Section1001S04', 'Fall', 2023),
@@ -1015,7 +1015,6 @@ INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('9'
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('10', 'PH0010', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('11', 'PH0011', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('12', 'PH0012', '2022-01-15', NULL);
-
 
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'C');
