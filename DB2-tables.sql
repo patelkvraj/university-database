@@ -512,16 +512,16 @@ insert into course (course_id, course_name, credits) values
 ('COMP3020', 'Algorithms', 3),
 ('COMP3050', 'Software Engineering', 3),
 ('COMP3080', 'Database Systems', 3),
-('COMP4040', 'Artificial Intelligence', 4),
+('COMP4040', 'Artificial Intelligence', 3),
 -- Manning School of Business
 ('BUSN1001', 'Introduction to Business', 3),
 ('BUSN2002', 'Financial Accounting', 3),
 ('BUSN3003', 'Principles of Marketing', 3),
 ('BUSN3100', 'Business Ethics', 3),
 ('BUSN3200', 'Organizational Behavior', 3),
-('BUSN3300', 'Business Analytics', 4),
+('BUSN3300', 'Business Analytics', 3),
 ('BUSN3400', 'Operations Management', 3),
-('BUSN3500', 'Corporate Finance', 4),
+('BUSN3500', 'Corporate Finance', 3),
 ('BUSN3600', 'Strategic Management', 3),
 ('BUSN3700', 'International Business', 3),
 -- Francis College of Engineering
@@ -529,11 +529,11 @@ insert into course (course_id, course_name, credits) values
 ('ENGR2002', 'Statics', 3),
 ('ENGR2003', 'Dynamics', 3),
 ('ENGR3004', 'Fluid Mechanics', 3),
-('ENGR3005', 'Thermodynamics', 4),
+('ENGR3005', 'Thermodynamics', 3),
 ('ENGR3100', 'Electrical Circuits', 3),
 ('ENGR3200', 'Engineering Materials', 3),
 ('ENGR3300', 'Control Systems', 3),
-('ENGR3400', 'Engineering Design', 4),
+('ENGR3400', 'Engineering Design', 3),
 ('ENGR3500', 'Capstone Engineering Project', 3),
 -- College of Fine Arts, Humanities and Social Sciences
 ('FAHS1001', 'Intro to Psychology', 3),
@@ -550,7 +550,7 @@ insert into course (course_id, course_name, credits) values
 ('HLTH1001', 'Foundations of Health Science', 3),
 ('HLTH1100', 'Medical Terminology', 2),
 ('HLTH2001', 'Nutrition and Wellness', 3),
-('HLTH2100', 'Human Anatomy & Physiology I', 4),
+('HLTH2100', 'Human Anatomy & Physiology I', 3),
 ('HLTH2200', 'Health Policy', 3),
 ('HLTH2300', 'Pathophysiology', 3),
 ('HLTH2400', 'Clinical Microbiology', 3),
@@ -561,31 +561,7 @@ insert into course (course_id, course_name, credits) values
 
 
 -- section
--- First, create all the sections needed
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES (course_id, section_id, 'semester', year),
-('COMP1010', 'Section101', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1010', 'Section102', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1010', 'Section103', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1010', 'Section104', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1020', 'Section101', 'Spring', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1020', 'Section102', 'Spring', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2010', 'Section101', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2010', 'Section102', 'Fall', 2023);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2040', 'Section201', 'Spring', 2023);
-
--- Add Spring 2025 sections
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1010', 'Section001', 'Spring', 2025);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1010', 'Section002', 'Spring', 2025);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1020', 'Section001', 'Spring', 2025);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2010', 'Section001', 'Spring', 2025);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2040', 'Section001', 'Spring', 2025);
-
--- Add Spring 2024 sections that are needed for the take table
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1020', 'Section101', 'Spring', 2024);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP1020', 'Section102', 'Spring', 2024);
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('COMP2040', 'Section201', 'Spring', 2024);
-
--- all other classes 
+-- all classes 
 INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('BUSN1001', 'Section1001S01', 'Fall', 2021),
 ('BUSN1001', 'Section1001S02', 'Fall', 2022),
 ('BUSN1001', 'Section1001S03', 'Spring', 2022),
