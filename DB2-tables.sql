@@ -1021,104 +1021,37 @@ INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALU
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'C+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG002', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'C+');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG003', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG003', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'C+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG003', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG003', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG003', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B-');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG004', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'A');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG005', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG006', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG006', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG006', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG006', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG006', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B-');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG007', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'B');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG008', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG008', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG008', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A');
@@ -1309,72 +1242,53 @@ INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALU
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'C+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH003', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'A');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH004', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH004', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH004', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH004', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C+');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH005', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'B+');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH006', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH006', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH006', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH006', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C+');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH007', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'C+');
+
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'C');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH008', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'C');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'C+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B+');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'A');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH009', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'C');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0010', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0010', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0010', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0010', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'C');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0011', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0011', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0011', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'A-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0011', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'C');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'B');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2010', 'Section2010S03', 'Fall', 2023, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2040', 'Section2040S01', 'Fall', 2021, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1010', 'Section1010S02', 'Spring', 2022, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1020', 'Section1020S03', 'Fall', 2023, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2010', 'Section2010S01', 'Fall', 2021, 'A-');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2040', 'Section2040S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1010', 'Section1010S03', 'Fall', 2023, 'C+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP1020', 'Section1020S01', 'Fall', 2021, 'B');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2010', 'Section2010S02', 'Spring', 2022, 'B+');
-INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('PH0012', 'COMP2040', 'Section2040S03', 'Fall', 2023, 'B+');
+
 INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES ('UG001', 'COMP2010', 'Section2010S10', 'Spring', 2025);
 INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES ('UG002', 'COMP2010', 'Section2010S10', 'Spring', 2025);
 INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES ('UG003', 'COMP1020', 'Section1020S10', 'Spring', 2025);
