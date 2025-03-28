@@ -595,6 +595,14 @@ INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('10
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('11', 'PH0011', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('12', 'PH0012', '2022-01-15', NULL);
 
+INSERT INTO section (course_id, section_id, semester, year, instructor_id, classroom_id, time_slot_id)
+VALUES 
+('COMP1010', 'Section001', 'Spring', 2025, '1', 'CL001', 'TS1'),
+('COMP1010', 'Section002', 'Spring', 2025, '2', 'CL002', 'TS2'),
+('COMP1020', 'Section001', 'Spring', 2025, '3', 'CL003', 'TS3'),
+('COMP2010', 'Section001', 'Spring', 2025, '4', 'CL004', 'TS4'),
+('COMP2040', 'Section001', 'Spring', 2025, '5', 'CL005', 'TS5');
+
 INSERT INTO section (course_id, section_id, semester, year, instructor_id, classroom_id, time_slot_id) 
 VALUES 
 -- Computing I
