@@ -85,7 +85,7 @@ create table course
 
 create table section
 	(course_id		varchar(20),
-	 section_id		varchar(10), 
+	 section_id		varchar(20), 
 	 semester		varchar(6)
 			check (semester in ('Fall', 'Winter', 'Spring', 'Summer')), 
 	 year			numeric(4,0) check (year > 1990 and year < 2100), 
