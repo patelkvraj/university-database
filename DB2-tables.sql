@@ -125,7 +125,7 @@ create table advise
 create table TA
 	(student_id		varchar(10),
 	 course_id		varchar(8),
-	 section_id		varchar(10), 
+	 section_id		varchar(20), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
 	 primary key (student_id, course_id, section_id, semester, year),
@@ -139,7 +139,7 @@ create table TA
 create table masterGrader
 	(student_id		varchar(10),
 	 course_id		varchar(8),
-	 section_id		varchar(10), 
+	 section_id		varchar(20), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
 	 primary key (student_id, course_id, section_id, semester, year),
@@ -153,7 +153,7 @@ create table masterGrader
 create table undergraduateGrader
 	(student_id		varchar(10),
 	 course_id		varchar(8),
-	 section_id		varchar(10), 
+	 section_id		varchar(20), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
 	 primary key (student_id, course_id, section_id, semester, year),
@@ -184,7 +184,7 @@ create table take
 CREATE TABLE course_event (
     event_id INT AUTO_INCREMENT,
     course_id VARCHAR(20),
-    section_id VARCHAR(10),
+    section_id VARCHAR(20),
     semester VARCHAR(6),
     year NUMERIC(4,0),
     event_title VARCHAR(100) NOT NULL,
