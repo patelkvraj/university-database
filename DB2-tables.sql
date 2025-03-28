@@ -562,7 +562,7 @@ insert into course (course_id, course_name, credits) values
 
 -- section
 -- all classes 
-INSERT INTO section (course_id, section_id, 'semester', year) VALUES ('BUSN1001', 'Section1001S01', 'Fall', 2021),
+INSERT INTO section (course_id, section_id, semester, year) VALUES ('BUSN1001', 'Section1001S01', 'Fall', 2021),
 ('BUSN1001', 'Section1001S02', 'Fall', 2022),
 ('BUSN1001', 'Section1001S03', 'Spring', 2022),
 ('BUSN1001', 'Section1001S04', 'Fall', 2023),
