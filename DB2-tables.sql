@@ -167,7 +167,7 @@ create table undergraduateGrader
 create table take
 	(student_id		varchar(10), 
 	 course_id		varchar(8),
-	 section_id		varchar(10), 
+	 section_id		varchar(20), 
 	 semester		varchar(6),
 	 year			numeric(4,0),
 	 grade		    	varchar(2)
@@ -594,6 +594,46 @@ INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('9'
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('10', 'PH0010', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('11', 'PH0011', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('12', 'PH0012', '2022-01-15', NULL);
+
+INSERT INTO section (course_id, section_id, semester, year, instructor_id, classroom_id, time_slot_id) 
+VALUES 
+-- Computing I
+('COMP1010', 'Section1010S01', 'Fall', 2021, '1', 'CL001', 'TS1'),
+('COMP1010', 'Section1010S02', 'Fall', 2022, '1', 'CL001', 'TS1'),
+('COMP1010', 'Section1010S03', 'Spring', 2022, '2', 'CL002', 'TS2'),
+('COMP1010', 'Section1010S04', 'Fall', 2023, '2', 'CL002', 'TS2'),
+('COMP1010', 'Section1010S05', 'Spring', 2023, '3', 'CL003', 'TS3'),
+('COMP1010', 'Section1010S06', 'Fall', 2024, '3', 'CL003', 'TS3'),
+('COMP1010', 'Section1010S07', 'Spring', 2024, '4', 'CL004', 'TS4'),
+('COMP1010', 'Section1010S10', 'Spring', 2025, '1', 'CL001', 'TS1'),
+
+-- Computing II
+('COMP1020', 'Section1020S01', 'Fall', 2021, '2', 'CL002', 'TS2'),
+('COMP1020', 'Section1020S02', 'Spring', 2022, '2', 'CL002', 'TS2'),
+('COMP1020', 'Section1020S03', 'Fall', 2022, '3', 'CL003', 'TS3'),
+('COMP1020', 'Section1020S04', 'Spring', 2023, '3', 'CL003', 'TS3'),
+('COMP1020', 'Section1020S05', 'Fall', 2023, '4', 'CL004', 'TS4'),
+('COMP1020', 'Section1020S06', 'Spring', 2024, '4', 'CL004', 'TS4'),
+('COMP1020', 'Section1020S07', 'Fall', 2024, '5', 'CL005', 'TS5'),
+('COMP1020', 'Section1020S10', 'Spring', 2025, '2', 'CL002', 'TS2'),
+
+-- Computing III
+('COMP2010', 'Section2010S01', 'Fall', 2021, '3', 'CL003', 'TS3'),
+('COMP2010', 'Section2010S02', 'Spring', 2022, '3', 'CL003', 'TS3'),
+('COMP2010', 'Section2010S03', 'Fall', 2023, '4', 'CL004', 'TS4'),
+('COMP2010', 'Section2010S04', 'Spring', 2023, '4', 'CL004', 'TS4'),
+('COMP2010', 'Section2010S05', 'Fall', 2024, '5', 'CL005', 'TS5'),
+('COMP2010', 'Section2010S06', 'Spring', 2024, '5', 'CL005', 'TS5'),
+('COMP2010', 'Section2010S10', 'Spring', 2025, '3', 'CL003', 'TS3'),
+
+-- Computing IV
+('COMP2040', 'Section2040S01', 'Fall', 2021, '4', 'CL004', 'TS4'),
+('COMP2040', 'Section2040S02', 'Spring', 2022, '4', 'CL004', 'TS4'),
+('COMP2040', 'Section2040S03', 'Fall', 2022, '5', 'CL005', 'TS5'),
+('COMP2040', 'Section2040S04', 'Spring', 2023, '5', 'CL005', 'TS5'),
+('COMP2040', 'Section2040S05', 'Fall', 2023, '1', 'CL001', 'TS1'),
+('COMP2040', 'Section2040S06', 'Spring', 2024, '1', 'CL001', 'TS1'),
+('COMP2040', 'Section2040S10', 'Spring', 2025, '4', 'CL004', 'TS4');
 
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1010', 'Section1010S01', 'Fall', 2021, 'B-');
 INSERT INTO take (student_id, course_id, section_id, semester, year, grade) VALUES ('UG001', 'COMP1020', 'Section1020S02', 'Spring', 2022, 'C');
