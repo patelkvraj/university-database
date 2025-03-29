@@ -9,6 +9,7 @@ $success_message = '';
 $error_message = '';
 $student_id = '';
 $course_info = null;
+$course_rated = null;
 
 if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
@@ -118,7 +119,34 @@ include 'header.php';
             </select>
 
             <input type="hidden" name="student_name" value="Student Name"> <input type="submit" value="Submit Rating">
+
+            <?php
+                // check whether the student have rate a class
+                $sql = "SELECT *
+                        FROM rate
+                        WHERE rate.student_id = '$student_id'";
+                $result = $conn->query($sql);
+                $row = mysqli_fetch_assoc($result);
+
+                // if rate a class, update the $course_rated
+                if ($row) {
+                    $course_rated = $row["course_id"];
+                }
+            ?>
+
         </form>
+    <?php endif; ?>
+
+    <!--Student have rate a course-->
+    <?php if($course_rated): ?>
+        <h2>Your Rating:</h2>
+        <p>You have rated at least one class</p>
+    <?php endif; ?>
+
+    <!--Student have not rate a course-->
+    <?php if(!$course_rated): ?>
+        <h2>Your Rating:</h2>
+        <p>You haven't rated any courses yet</p>
     <?php endif; ?>
 </body>
 </html>
