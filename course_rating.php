@@ -59,28 +59,34 @@ include 'header.php';
                     <th>Course Name</th>
                     <th>Semester</th>
                     <th>Year</th>
-                    <th>Instructor</th>
+                    <!-- <th>Instructor</th> -->
                     <th>Grade</th>
                     <th>Overall Rating</th>
                 </tr>
-                <tr>
-                    <td>COMP2010</td>
-                    <td>Computing 3</td>
-                    <td>Fall</td>
-                    <td>2023</td>
-                    <td>Johannes Weis</td>
-                    <td>Grade</td>
-                    <td>4.5/5.0</td>
-                </tr>
-                <tr>
-                    <td>COMP2040</td>
-                    <td>Computing 4</td>
-                    <td>Spring</td>
-                    <td>2022</td>
-                    <td>Yelena Rykalova</td>
-                    <td>Grade</td>
-                    <td>4.3/5.0</td>
-                </tr>
+                <?php
+                   $sql = "SELECT c.course_id, c.course_name, t.semester, t.year, t.grade, AVG(r.rate) AS average_rate
+                        FROM
+                            take t
+                        JOIN
+                            course c ON t.course_id = c.course_id AND t.student_id = '$student_id' AND t.grade <> 'NULL'
+                        LEFT JOIN
+                            rate r ON t.course_id = r.course_id
+                        GROUP BY
+                            c.course_id, c.course_name, t.semester, t.year, t.grade";
+                   $result = mysqli_query($conn, $sql);
+
+                   while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>$row[course_id]</td>";
+                    echo "<td>$row[course_name]</td>";
+                    echo "<td>$row[semester]</td>";
+                    echo "<td>$row[year]</td>";
+                    // echo "<td>Johannes Weis</td>";
+                    echo "<td>$row[grade]</td>";
+                    echo "<td>$row[average_rate]</td>";
+                    echo "</tr>";
+                   } 
+                ?>
             </thead>
             <tbody>
             </tbody>
@@ -95,12 +101,12 @@ include 'header.php';
             <?php
                 $sql = "SELECT course_id, student_id
                         FROM take
-                        WHERE student_id = '$student_id'";
+                        WHERE student_id = '$student_id' AND grade <> 'NULL'";
 
                 $result = mysqli_query($conn, $sql);
-                $num = mysqli_num_rows($result);
+                $row = mysqli_num_rows($result);
 
-                if ($num > 1) {
+                if ($row > 1) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $course_id = $row['course_id'];
                         echo "<option value='$course_id'>$course_id</option>";
