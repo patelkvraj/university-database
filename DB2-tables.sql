@@ -923,3 +923,8 @@ INSERT INTO student_todo (student_id, todo_title, todo_description, due_date, is
 ('UG002', 'Meet with Advisor', 'Discuss course selection for next semester', '2025-03-01', 0),
 ('UG003', 'Buy Textbook', 'Get textbook for COMP1020', '2025-01-30', 1),
 ('UG004', 'Internship Application', 'Submit application for summer internship', '2025-02-28', 0);
+
+-- Insert some sample rating to courses for demonstration
+INSERT INTO rate(rate_id, student_id, course_id, rate) VALUES(1, 'MS0010', 'COMP1010', 5);
+INSERT INTO rate(rate_id, student_id, course_id, rate) VALUES(2, 'MS001', 'COMP1020', 4);
+INSERT INTO rate(rate_id, student_id, course_id, rate) VALUES(3, 'MS001', 'COMP2040', 2.5);
