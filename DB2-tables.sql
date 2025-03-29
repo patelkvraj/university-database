@@ -214,6 +214,13 @@ CREATE TABLE student_todo (
         ON DELETE SET NULL
 );
 
+CREATE TABLE rate (
+	rate_id INT AUTO_INCREMENT PRIMARY KEY,
+	student_id VARCHAR(10),
+	course_id VARCHAR(20),
+	rate REAL
+);
+
 -- account
 insert into account (email, password, type) values 
 -- admin
