@@ -10,6 +10,9 @@ $error_message = '';
 $student_id = '';
 $course_info = null;
 $course_rated = null;
+$course_to_rate = null;
+$new_course_to_rate = null;
+$rate_for_course = null;
 
 if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
@@ -29,6 +32,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Please enter a student ID.";
     }
 }
+
+/*Handle course rating after user submission*/
+if (isset($_POST['rate_submission'])) {
+    // Form 1 was submitted
+    $course_to_rate = $_POST['course'];
+    $rate_for_course = $_POST['rating'];
+    // echo "You rated " . $course_to_rate . " with score " . $rate_for_course;
+
+    $sql = "INSERT INTO rate(student_id, course_id, rate) VALUES('$student_id', '$course_to_rate', $rate_for_course)";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Rating submitted successfully.";
+    } else {
+        echo "An error occurred while submitting your rating. Please try again.";
+    }
+}
+
 // include header
 include 'header.php';
 ?>
@@ -63,6 +84,8 @@ include 'header.php';
                     <th>Grade</th>
                     <th>Overall Rating</th>
                 </tr>
+            </thead>
+            <tbody>
                 <?php
                    $sql = "SELECT c.course_id, c.course_name, t.semester, t.year, t.grade, AVG(r.rate) AS average_rate
                         FROM
@@ -83,70 +106,127 @@ include 'header.php';
                     echo "<td>$row[year]</td>";
                     // echo "<td>Johannes Weis</td>";
                     echo "<td>$row[grade]</td>";
-                    echo "<td>$row[average_rate]</td>";
+
+                    // Format the rating to one decimal place and remove trailing zeros
+                    $formattedRating = rtrim(sprintf("%.1f", $row['average_rate']), '0');
+                    $formattedRating = rtrim($formattedRating, '.');
+                    echo "<td>$formattedRating</td>";
+                    
                     echo "</tr>";
                    } 
                 ?>
-            </thead>
-            <tbody>
             </tbody>
         </table>
 
-        <h2>Select a Course to Rate:</h2>
+        <h2>Select a New Course to Rate:</h2>
+        <?php
+            $sql = "SELECT t.course_id
+                    FROM take t
+                    WHERE t.student_id = '$student_id'
+                        AND t.grade <> 'NULL'
+                        AND t.course_id NOT IN (SELECT r.course_id FROM rate r WHERE r.student_id = '$student_id')";
 
-        <form method="post" action="">
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_num_rows($result);
+        ?>
+            <?php if ($row) { ?>
+                <form method="post" action="">
+                    <label for="course">Choose a Course:</label>
+                    <select name="course" id="course">
+                    <?php
+                        $sql = "SELECT t.course_id
+                                FROM take t
+                                WHERE t.student_id = '$student_id'
+                                    AND t.grade <> 'NULL'
+                                    AND t.course_id NOT IN (SELECT r.course_id FROM rate r WHERE r.student_id = '$student_id')";
 
-            <label for="course">Choose a Course:</label>
-            <select name="course" id="course">
-            <?php
-                $sql = "SELECT course_id, student_id
-                        FROM take
-                        WHERE student_id = '$student_id' AND grade <> 'NULL'";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_num_rows($result);
 
-                $result = mysqli_query($conn, $sql);
-                $row = mysqli_num_rows($result);
+                        if ($row > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $course_id = $row['course_id'];
+                                echo "<option value='$course_id'>$course_id</option>";
+                            }
+                        }
+                    ?>
+                    </select>
 
-                if ($row > 1) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $course_id = $row['course_id'];
-                        echo "<option value='$course_id'>$course_id</option>";
-                    }
-                }
-            ?>
-            </select>
+                    <label for="rating">with a rate:</label>
+                    <select name="rating" id="rating">
+                        <option value="0.5">0.5</option>
+                        <option value="1">1</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2">2</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3">3</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4">4</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5">5</option>
+                    </select>
 
-            <label for="rating">Your Rating:</label>
-            <select name="rating" id="rating">
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-            </select>
+                    <input type="hidden" name="rate_submission" value="Student Name"> <input type="submit" value="Submit Rating">
+                </form>
+            <?php } else { ?>
+                <?php echo "No new courses to rate"; ?>
+            <?php } ?>
+        <?php endif; ?>
+        <?php
+            // check whether the student have rate a class
+            $sql = "SELECT *
+                    FROM rate
+                    WHERE rate.student_id = '$student_id'";
+            $result = $conn->query($sql);
+            $row = mysqli_fetch_assoc($result);
 
-            <input type="hidden" name="student_name" value="Student Name"> <input type="submit" value="Submit Rating">
-
-            <?php
-                // check whether the student have rate a class
-                $sql = "SELECT *
-                        FROM rate
-                        WHERE rate.student_id = '$student_id'";
-                $result = $conn->query($sql);
-                $row = mysqli_fetch_assoc($result);
-
-                // if rate a class, update the $course_rated
-                if ($row) {
-                    $course_rated = $row["course_id"];
-                }
-            ?>
-
-        </form>
-    <?php endif; ?>
+            // if rate a class, update the $course_rated
+            if ($row) {
+                $course_rated = $row["course_id"];
+            }
+        ?>
 
     <!--Student have rate a course-->
     <?php if($course_rated): ?>
         <h2>Your Rating:</h2>
-        <p>You have rated at least one class</p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                    <!-- <th>Instructor</th> -->
+                    <th>Grade</th>
+                    <th>Your Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $sql = "SELECT c.course_id, c.course_name, t.semester, t.year, t.grade, r.rate
+                            FROM
+                                take t
+                            JOIN
+                                course c ON t.course_id = c.course_id AND t.student_id = '$student_id' AND t.grade <> 'NULL'
+                            JOIN
+                                rate r ON t.course_id = r.course_id AND  r.student_id = '$student_id'";
+                        
+                    $result = mysqli_query($conn, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>$row[course_id]</td>";
+                        echo "<td>$row[course_name]</td>";
+                        echo "<td>$row[semester]</td>";
+                        echo "<td>$row[year]</td>";
+                        // echo "<td>Johannes Weis</td>";
+                        echo "<td>$row[grade]</td>";
+                        echo "<td>$row[rate]</td>";
+                        echo "</tr>";
+                    } 
+                    ?>
+            </tbody>
+        </table>
     <?php endif; ?>
 
     <!--Student have not rate a course-->
