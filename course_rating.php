@@ -80,22 +80,26 @@ include 'header.php';
                     <th>Course Name</th>
                     <th>Semester</th>
                     <th>Year</th>
-                    <!-- <th>Instructor</th> -->
+                    <th>Instructor</th>
                     <th>Grade</th>
                     <th>Overall Rating</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                   $sql = "SELECT c.course_id, c.course_name, t.semester, t.year, t.grade, AVG(r.rate) AS average_rate
+                   $sql = "SELECT c.course_id, c.course_name, t.semester, t.year, t.grade, AVG(r.rate) AS average_rate, i.instructor_name
                         FROM
                             take t
                         JOIN
                             course c ON t.course_id = c.course_id AND t.student_id = '$student_id' AND t.grade <> 'NULL'
                         LEFT JOIN
                             rate r ON t.course_id = r.course_id
+                        LEFT JOIN
+                            section s ON t.course_id = s.course_id AND t.semester = s.semester AND t.year = s.year
+                        LEFT JOIN 
+                            instructor i ON s.instructor_id = i.instructor_id -- Join instructor table through section
                         GROUP BY
-                            c.course_id, c.course_name, t.semester, t.year, t.grade";
+                            c.course_id, c.course_name, t.semester, t.year, t.grade, i.instructor_id";
                    $result = mysqli_query($conn, $sql);
 
                    while ($row = mysqli_fetch_assoc($result)) {
@@ -104,7 +108,7 @@ include 'header.php';
                     echo "<td>$row[course_name]</td>";
                     echo "<td>$row[semester]</td>";
                     echo "<td>$row[year]</td>";
-                    // echo "<td>Johannes Weis</td>";
+                    echo "<td>$row[instructor_name]</td>";
                     echo "<td>$row[grade]</td>";
 
                     // Format the rating to one decimal place and remove trailing zeros
