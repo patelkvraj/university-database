@@ -48,6 +48,18 @@ function home_redirect() {
                 | <a href="course_rating.php?student_id=<?php echo $_SESSION['student_id']; ?>">Course Rating</a>
             <?php endif; ?>
 
+            <?php if ($_SESSION['account_type'] == 'admin'): ?>
+                | <a href="admin.php">Admin Dashboard</a>
+                | <a href="grader_assignment.php">Grader Assignment</a>
+                | <a href="phd_advisors.php">PhD Advisors</a>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['account_type'] == 'instructor'): ?>
+                | <a href="instructor.php?instructor_id=<?php echo $_SESSION['instructor_id']; ?>">Instructor Dashboard</a>
+                | <a href="grader_assignment.php">Grader Assignment</a>
+                | <a href="phd_advisors.php">Manage PhD Advisees</a>
+            <?php endif; ?>
+
             | <a href="logout.php">Logout</a>
         <?php endif; ?>
     </div>
