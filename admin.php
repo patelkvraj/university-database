@@ -305,7 +305,7 @@ while ($row = mysqli_fetch_assoc($section_result)) {
 
             // find eligible PhD student who is not already a TA
             $phd_sql = "SELECT p.student_id, s.name FROM PhD p
-                        JOIN students s ON p.student_id = s.student_id
+                        JOIN student s ON p.student_id = s.student_id
                         WHERE NOT EXISTS (
                             SELECT 1 FROM TA
                             WHERE TA.student_id = p.student_id
