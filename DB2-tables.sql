@@ -218,7 +218,8 @@ CREATE TABLE rate (
 	rate_id INT AUTO_INCREMENT PRIMARY KEY,
 	student_id VARCHAR(10),
 	course_id VARCHAR(20),
-	rate REAL
+	rate REAL,
+	comments VARCHAR(255)
 );
 
 -- account

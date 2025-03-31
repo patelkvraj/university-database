@@ -38,9 +38,11 @@ if (isset($_POST['rate_submission'])) {
     // Form 1 was submitted
     $course_to_rate = $_POST['course'];
     $rate_for_course = $_POST['rating'];
+    $comments = $_POST['comments'];
+    $comments = mysqli_real_escape_string($conn, $comments);
     // echo "You rated " . $course_to_rate . " with score " . $rate_for_course;
 
-    $sql = "INSERT INTO rate(student_id, course_id, rate) VALUES('$student_id', '$course_to_rate', $rate_for_course)";
+    $sql = "INSERT INTO rate(student_id, course_id, rate, comments) VALUES('$student_id', '$course_to_rate', '$rate_for_course', '$comments')";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -83,6 +85,7 @@ include 'header.php';
                     <th>Instructor</th>
                     <th>Grade</th>
                     <th>Overall Rating</th>
+                    <th>Comments</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +100,7 @@ include 'header.php';
                         LEFT JOIN
                             section s ON t.course_id = s.course_id AND t.semester = s.semester AND t.year = s.year
                         LEFT JOIN 
-                            instructor i ON s.instructor_id = i.instructor_id -- Join instructor table through section
+                            instructor i ON s.instructor_id = i.instructor_id
                         GROUP BY
                             c.course_id, c.course_name, t.semester, t.year, t.grade, i.instructor_id";
                    $result = mysqli_query($conn, $sql);
@@ -110,12 +113,12 @@ include 'header.php';
                     echo "<td>$row[year]</td>";
                     echo "<td>$row[instructor_name]</td>";
                     echo "<td>$row[grade]</td>";
-
                     // Format the rating to one decimal place and remove trailing zeros
                     $formattedRating = rtrim(sprintf("%.1f", $row['average_rate']), '0');
                     $formattedRating = rtrim($formattedRating, '.');
                     echo "<td>$formattedRating</td>";
                     
+                    echo "<td><a href='display_comments.php?course_id=$row[course_id]'>View Comments</a></td>";
                     echo "</tr>";
                    } 
                 ?>
@@ -170,6 +173,9 @@ include 'header.php';
                         <option value="5">5</option>
                     </select>
 
+                    <label for="comments">Comments:</label>
+                    <textarea name="comments" id="comments" rows="4" cols="50" placeholder="Enter your comments here..."></textarea>
+                    
                     <input type="hidden" name="rate_submission" value="Student Name"> <input type="submit" value="Submit Rating">
                 </form>
             <?php } else { ?>
