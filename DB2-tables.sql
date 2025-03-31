@@ -588,7 +588,9 @@ UPDATE section SET instructor_id = '5', classroom_id = 'CL005', time_slot_id = '
 INSERT INTO prereq (course_id, prereq_id) VALUES
 ('COMP1020', 'COMP1010'),
 ('COMP2010', 'COMP1020'),
-('COMP2040', 'COMP2010');
+('COMP2040', 'COMP2010'),
+('ENGR1001', 'ENGR2002'),
+('BUSN1001', 'BUSN2002');
 
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('1', 'PH001', '2022-01-15', NULL);
 INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('2', 'PH002', '2022-01-15', NULL);
